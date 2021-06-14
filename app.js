@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const cors = require('cors');
 
 
@@ -9,10 +10,10 @@ const cors = require('cors');
 
 const app = express();
 
+app.use(morgan('combined'))
 //carregamento de rotas
 
 const usersRoute = require('./routes/users'); //importatando de rotas
-
 
 
 app.use(bodyParser.json());
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 
 //implementando rotas
 
-app.use('/user', usersRoute);
+app.use('/', usersRoute);
 app.use(
     "/arquivos",
     express.static(path.resolve(__dirname,"tmp","uploads"))
