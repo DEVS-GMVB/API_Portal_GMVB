@@ -1,32 +1,27 @@
-const {
-    acesso_completo,
-    acessos,
-    cadastro
-} = require('../models');
+const { acesso_completo, acessos,cadastro } = require('../models');
 
 const mailer = require('../modules/mailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../config/auth.json')
 
 
 const UserController = {
 
     //metodo de login 
     Login: async (req, res) => {
-        const {
-            usuario,
-            senha
-        } = req.body;
+        const { usuario, senha } = req.body;
 
         const user = await acesso_completo.findOne({
 
             where: {
                 usuario: usuario,
                 senha: senha
-            }
+            },attributes: { exclude: ['senha'] }
         });
 
         if (!user)
-            return res.status(400).send({
+            return res.status(401).send({
                 erro: "usuario ou senha invalidos"
             });
 
@@ -45,20 +40,23 @@ const UserController = {
                 parceiro: user.gerente
             }
         })
+        const token = jwt.sign({id: user.id_acesso}, authConfig.secret,{
+            expiresIn: 10800,
+        } )
 
         return res.status(200).send({
             user : user,
             supervisor_cpf: buscaCpfSupervisor.cnpj,
-            gerente_cpf: buscaCpfGerente.cnpj
+            gerente_cpf: buscaCpfGerente.cnpj,
+            tokenjwt:token
         });
     },
+
 
     //metodo de busca e envio de email de email para recuperar senha
     send: async (req, res) => {
 
-        const {
-            email
-        } = req.body;
+        const { email } = req.body;
 
         try {
             const user = await acesso_completo.findOne({

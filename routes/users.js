@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const authMiddleware = require('../middlewares/auth');
+
+
 const multerConfig = require('../config/multer');
 const ecxelConfig = require('../config/excel');
 const UserController = require('../controllers/UserController');
@@ -85,7 +88,9 @@ router.get('/bancoOrigi', PreencherCamposController.BancoOrigi);
 router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
 
 
-// router.get('/banco',PreencherCamposController)
+//middleware de autenticação
+router.use(authMiddleware);
+
 
 //pequisa de cadastros
 router.post('/search', CadastroController.FullSearch);
