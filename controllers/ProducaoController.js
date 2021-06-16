@@ -2,10 +2,8 @@ const {
     producao
 } = require("../models");
 const data = require('../config/database');
-
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(data)
-
 
 const ProducaoController = {
     ProducaoAtual: async (req, res) => {
@@ -61,6 +59,7 @@ const ProducaoController = {
     },
 
     Lista: async (req, res) => {
+
         const {
             supervisor
         } = req.body;

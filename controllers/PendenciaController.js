@@ -1,4 +1,11 @@
-const { vw, vw_proposta, propostas } = require('../models');
+const {
+    vw_proposta,
+    propostas
+} = require('../models');
+const {
+    Op
+} = require('sequelize');
+
 
 const PendenciaController = {
     Filtro: async (req, res) => {
@@ -52,7 +59,7 @@ const PendenciaController = {
         return res.json(resultFilter);
     },
 
-    Alterar: async (req, res) =>{
+    Alterar: async (req, res) => {
 
         const {
             proposta,
@@ -74,7 +81,7 @@ const PendenciaController = {
             arq_cad2n,
             arq_cad3n,
             arq_cad4n,
-            convenio,                        
+            convenio,
             produto,
             telefone,
             agendamento,
@@ -87,46 +94,46 @@ const PendenciaController = {
         try {
 
             const result = await propostas.findOne({
-                where:{
+                where: {
                     proposta
                 }
             });
 
-            if (!result){
+            if (!result) {
                 return res.send('Proposta vw inexistente')
             }
 
-           result.novo_proposta = novo_proposta
-           result.obs_pendencia = obs_pendencia
-           //autoriza saldo 
-           //tabela 
-           result.tipo = tipo
-           result.saldo_port1 = saldo_port1
-           result.saldo_port2 = saldo_port2
-           result.saldo_port3 = saldo_port3
-           result.arquivo_pendente1 = arquivo_pendente1
-           result.arquivo_pendente2 = arquivo_pendente2
-           result.arquivo_pendente1n = arquivo_pendente1n
-           result.arquivo_pendente2n = arquivo_pendente2n
-           result.arq_cad1 = arq_cad1
-           result.arq_cad2 = arq_cad2
-           result.arq_cad3 = arq_cad3
-           result.arq_cad4 = arq_cad4
-           result.arq_cad1n = arq_cad1n
-           result.arq_cad2n = arq_cad2n
-           result.arq_cad3n = arq_cad3n
-           result.arq_cad4n = arq_cad4n
-           result.convenio = convenio
-           result.produto = produto
-           result.telefone = telefone
-           result.agendamento = agendamento
-           result.horario = horario
-           result.banco = banco
-           result.agencia = agencia
-           result.conta_cliente = conta_cliente
-           result.save();
-           return res.json(result);
-        
+            result.novo_proposta = novo_proposta
+            result.obs_pendencia = obs_pendencia
+            //autoriza saldo 
+            //tabela 
+            result.tipo = tipo
+            result.saldo_port1 = saldo_port1
+            result.saldo_port2 = saldo_port2
+            result.saldo_port3 = saldo_port3
+            result.arquivo_pendente1 = arquivo_pendente1
+            result.arquivo_pendente2 = arquivo_pendente2
+            result.arquivo_pendente1n = arquivo_pendente1n
+            result.arquivo_pendente2n = arquivo_pendente2n
+            result.arq_cad1 = arq_cad1
+            result.arq_cad2 = arq_cad2
+            result.arq_cad3 = arq_cad3
+            result.arq_cad4 = arq_cad4
+            result.arq_cad1n = arq_cad1n
+            result.arq_cad2n = arq_cad2n
+            result.arq_cad3n = arq_cad3n
+            result.arq_cad4n = arq_cad4n
+            result.convenio = convenio
+            result.produto = produto
+            result.telefone = telefone
+            result.agendamento = agendamento
+            result.horario = horario
+            result.banco = banco
+            result.agencia = agencia
+            result.conta_cliente = conta_cliente
+            result.save();
+            return res.json(result);
+
         } catch (error) {
             console.log(error)
         }
@@ -151,6 +158,37 @@ const PendenciaController = {
             res.send(error);
         }
     },
+
+    Modal4: async (req, res) => {
+        const codigo = req.query.codigo;
+
+        let {
+            arquivo_pendente1,
+            arquivo_pendente2,
+            arquivo_pendente1n,
+            arquivo_pendente2n
+        } = req.body;
+
+        arquivo_pendente1 ? arquivo_pendente1 = arquivo_pendente1.originalname[0] : arquivo_pendente1 = null;
+        arquivo_pendente2 ? arquivo_pendente2 = arquivo_pendente2.originalname[0] : arquivo_pendente2 = null;
+        arquivo_pendente1n ? arquivo_pendente1n = arquivo_pendente1n.originalname[0] : arquivo_pendente1n = null;
+        arquivo_pendente2n ? arquivo_pendente2n = arquivo_pendente2n.originalname[0] : arquivo_pendente2n = null;
+
+        const resultUpdate = await propostas.findOne({
+            where: {
+                proposta: codigo
+            }
+        });
+
+        if(resultUpdate) {
+            resultUpdate.arquivo_pendente1 = arquivo_pendente1;
+            resultUpdate.arquivo_pendente2 = arquivo_pendente2;
+            resultUpdate.arquivo_pendente1n = arquivo_pendente1n;
+
+        }
+    }
+
+    
 }
 
 module.exports = PendenciaController;

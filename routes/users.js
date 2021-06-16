@@ -550,7 +550,7 @@ router.post("/producao/lista", ProducaoController.Lista);
 router.post("/producao/alterar", ProducaoController.Alterar);
 router.post("/producao/modal", ProducaoController.Modal);
 
-//Pendencia
+//Pendência
 router.post("/pendencia", PendenciaController.Filtro);
 router.post('/pendencia/alterar', PendenciaController.Alterar);
 router.post('/pendencia/modal', PendenciaController.Modal);
