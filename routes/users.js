@@ -38,6 +38,7 @@ const PropostaBbController = require('../controllers/PropostaBbController');
 const TblUsuarioController = require('../controllers/TblUsuarioController');
 const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
 const ProducaoController = require('../controllers/ProducaoController');
+const PendenciaController = require('../controllers/PendenciaController');
 
 //teste
 router.get('/', (req, res) => {
@@ -548,5 +549,10 @@ router.post("/producao/buscar", ProducaoController.ProducaoAtual);
 router.post("/producao/lista", ProducaoController.Lista);
 router.post("/producao/alterar", ProducaoController.Alterar);
 router.post("/producao/modal", ProducaoController.Modal);
+
+//Pendência
+router.post("/pendencia", PendenciaController.Filtro);
+router.post('/pendencia/alterar', PendenciaController.Alterar);
+router.post('/pendencia/modal', PendenciaController.Modal);
 
 module.exports = router;

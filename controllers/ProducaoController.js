@@ -2,7 +2,11 @@ const {
     producao
 } = require("../models");
 
+const data = require('../config/database');
+
 const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize(data)
 
 const ProducaoController = {
     ProducaoAtual: async (req, res) => {
@@ -58,6 +62,7 @@ const ProducaoController = {
     },
 
     Lista: async (req, res) => {
+
         const {
             supervisor
         } = req.body;
@@ -65,14 +70,9 @@ const ProducaoController = {
         let where = {};
         if (supervisor) where.supervisor = supervisor;
 
-        const Producao = await producao.findAll({
-            where,
-            order: [
-                [Sequelize.fn('str_to_date', Sequelize.col('data_cadastro'), '%d/%m/%Y'), 'desc']
-            ],
-            limit: 50
-        })
-        res.status(200).json(Producao);
+        const [resultFilter] = await sequelize.query(`select * from producao where str_to_date(data_cadastro, '%d/%m/%Y') <= curdate() and supervisor = '${where.supervisor}' order by str_to_date(data_cadastro, '%d/%m/%Y') desc limit 100;`);
+
+        return res.status(200).json(resultFilter);
     },
 
     Alterar: async (req, res) => {
