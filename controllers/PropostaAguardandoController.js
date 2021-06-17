@@ -231,7 +231,6 @@ const PropostaAguardandoController = {
         const hash = req.body.hash;
 
         const listHash = Object.values(hash);
-        console.log(listHash);
 
         let {
             arquivo5,

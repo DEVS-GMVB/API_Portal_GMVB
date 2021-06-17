@@ -180,7 +180,7 @@ const PendenciaController = {
             }
         });
 
-        if(resultUpdate) {
+        if (resultUpdate) {
             resultUpdate.arquivo_pendente1 = arquivo_pendente1;
             resultUpdate.arquivo_pendente2 = arquivo_pendente2;
             resultUpdate.arquivo_pendente1n = arquivo_pendente1n;
@@ -309,7 +309,7 @@ const PendenciaController = {
     ObterArquivo: async (req, res) => {
         const hashFile = req.query.hash;
         //"tmp/uploads/" + hashFile;
-        const file = path.join("tmp","uploads",hashFile);
+        const file = path.join("tmp", "uploads", hashFile);
 
         const filename = path.basename(file);
         const mimetype = await mime.lookup(file);
@@ -321,7 +321,9 @@ const PendenciaController = {
         filestream.pipe(res);
 
         return res.download(filestream);
-    } 
+    }
+
+
 }
 
 module.exports = PendenciaController;
