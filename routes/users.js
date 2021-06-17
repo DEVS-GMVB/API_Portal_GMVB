@@ -554,5 +554,69 @@ router.post("/producao/modal", ProducaoController.Modal);
 router.post("/pendencia", PendenciaController.Filtro);
 router.post('/pendencia/alterar', PendenciaController.Alterar);
 router.post('/pendencia/modal', PendenciaController.Modal);
+router.post('/pendencia/arquivo', multer(multerConfig).fields([
+    {
+        name: "arquivo_pendente1",
+        macCount: 1
+    },
+    {
+        name: "arquivo_pendente1n",
+        maxCount: 1
+    },
+    {
+        name: "arquivo_pendente2",
+        maxCount: 1
+    },
+    {
+        name: "arquivo_pendente2n",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad1",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad2",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad3",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad4",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad1n",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad2n",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad3n",
+        maxCount: 1
+    },
+    {
+        name: "arq_cad4n",
+        maxCount: 1
+    },
+    {
+        name: "saldo_port1",
+        maxCount: 1
+    },
+    {
+        name: "saldo_port2",
+        maxCount: 1
+    },
+    {
+        name: "saldo_port3",
+        maxCount: 1
+    }
+]), PendenciaController.UploadFiles);
+
+router.post('/pendencia/download', PendenciaController.ObterArquivo);
 
 module.exports = router;
