@@ -186,9 +186,142 @@ const PendenciaController = {
             resultUpdate.arquivo_pendente1n = arquivo_pendente1n;
 
         }
-    }
+    },
 
-    
+    UploadFiles: async (req, res) => {
+        const codigo = req.query.codigo;
+
+        const hash = req.body.hash;
+
+        const listHash = Object.values(hash);
+
+        let {
+            arquivo_pendente1,
+            arquivo_pendente1n,
+            arquivo_pendente2,
+            arquivo_pendente2n,
+            arq_cad1,
+            arq_cad2,
+            arq_cad3,
+            arq_cad4,
+            arq_cad1n,
+            arq_cad2n,
+            arq_cad3n,
+            arq_cad4n,
+            saldo_port1,
+            saldo_port2,
+            saldo_port3
+        } = req.files;
+
+        (arquivo_pendente1) ? arquivo_pendente1 = req.files.arquivo_pendente1[0].originalname: null;
+        (arquivo_pendente1n) ? arquivo_pendente1n = req.files.arquivo_pendente1n[0].originalname: null;
+        (arquivo_pendente2) ? arquivo_pendente2 = req.files.arquivo_pendente2[0].originalname: null;
+        (arquivo_pendente2n) ? arquivo_pendente2n = req.files.arquivo_pendente2n[0].originalname: null;
+        (arq_cad1) ? arq_cad1 = req.files.arq_cad1[0].originalname: null;
+        (arq_cad2) ? arq_cad2 = req.files.arq_cad2[0].originalname: null;
+        (arq_cad3) ? arq_cad3 = req.files.arq_cad3[0].originalname: null;
+        (arq_cad4) ? arq_cad4 = req.files.arq_cad4[0].originalname: null;
+        (arq_cad1n) ? arq_cad1n = req.files.arq_cad1n[0].originalname: null;
+        (arq_cad2n) ? arq_cad2n = req.files.arq_cad2n[0].originalname: null;
+        (arq_cad3n) ? arq_cad3n = req.files.arq_cad3n[0].originalname: null;
+        (arq_cad4n) ? arq_cad4n = req.files.arq_cad4n[0].originalname: null;
+        (saldo_port1) ? saldo_port1 = req.files.saldo_port1[0].originalname: null;
+        (saldo_port2) ? saldo_port2 = req.files.saldo_port2[0].originalname: null;
+        (saldo_port3) ? saldo_port3 = req.files.saldo_port3[0].originalname: null;
+
+        for (let i in listHash) {
+            let tempHash = listHash[i].substring(34, listHash[i].lenght);
+
+            console.log(arquivo_pendente1);
+
+            if (tempHash === arquivo_pendente1) {
+                arquivo_pendente1 = listHash[i];
+            } else if (tempHash === arquivo_pendente1n) {
+                arquivo_pendente1n = listHash[i];
+            } else if (tempHash === arquivo_pendente2) {
+                arquivo_pendente2 = listHash[i];
+            } else if (tempHash === arquivo_pendente2n) {
+                arquivo_pendente2n = listHash[i];
+            } else if (tempHash === arq_cad1) {
+                arq_cad1 = listHash[i];
+            } else if (tempHash === arq_cad2) {
+                arq_cad2 = listHash[i];
+            } else if (tempHash === arq_cad3) {
+                arq_cad3 = listHash[i];
+            } else if (tempHash === arq_cad4) {
+                arq_cad4 = listHash[i];
+            } else if (tempHash === arq_cad1n) {
+                arq_cad1n = listHash[i];
+            } else if (tempHash === arq_cad2n) {
+                arq_cad2n = listHash[i];
+            } else if (tempHash === arq_cad3n) {
+                arq_cad3n = listHash[i];
+            } else if (tempHash === arq_cad4n) {
+                arq_cad4n = listHash[i];
+            } else if (tempHash === saldo_port1) {
+                saldo_port1 = listHash[i];
+            } else if (tempHash === saldo_port2) {
+                saldo_port2 = listHash[i];
+            } else if (tempHash === saldo_port3) {
+                saldo_port3 = listHash[i];
+            } else {
+                tempHash = '';
+            }
+        }
+
+        try {
+
+            const resultData = await propostas.findOne({
+                where: {
+                    codigo
+                }
+            });
+
+            if (resultData) {
+                resultData.arquivo_pendente1 = arquivo_pendente1;
+                resultData.arquivo_pendente1n = arquivo_pendente1n;
+                resultData.arquivo_pendente2 = arquivo_pendente2;
+                resultData.arquivo_pendente2n = arquivo_pendente2n;
+                resultData.arq_cad1 = arq_cad1;
+                resultData.arq_cad2 = arq_cad2;
+                resultData.arq_cad3 = arq_cad3;
+                resultData.arq_cad4 = arq_cad4;
+                resultData.arq_cad1n = arq_cad1n;
+                resultData.arq_cad2n = arq_cad2n;
+                resultData.arq_cad3n = arq_cad3n;
+                resultData.arq_cad4n = arq_cad4n;
+                resultData.saldo_port1 = saldo_port1;
+                resultData.saldo_port2 = saldo_port2;
+                resultData.saldo_port3 = saldo_port3;
+
+                resultData.save();
+            }
+
+            return res.json({
+                resultData,
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    ObterArquivo: async (req, res) => {
+        const hashFile = req.query.hash;
+        //"tmp/uploads/" + hashFile;
+        const file = path.join("tmp","uploads",hashFile);
+
+        const filename = path.basename(file);
+        const mimetype = await mime.lookup(file);
+
+        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+        res.setHeader('Content-type', mimetype);
+
+        var filestream = await fs.createReadStream(file);
+        filestream.pipe(res);
+
+        return res.download(filestream);
+    } 
 }
 
 module.exports = PendenciaController;
