@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
         arquivo_rc: DataTypes.STRING,
         taxaespecial: DataTypes.STRING,
         arquivo_proposta: DataTypes.STRING,
+        arquivo_pendente1: DataTypes.STRING,
         validade_contrato: DataTypes.STRING,
         data_log1: DataTypes.STRING,
         sla: DataTypes.STRING,
