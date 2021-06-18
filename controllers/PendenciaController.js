@@ -9,9 +9,6 @@ const {
 
 const PendenciaController = {
     Filtro: async (req, res) => {
-        console.log(req.body);
-
-
         const objFieldsHandle = {
             get: (target, name) => {
                 return name in target ? target[name] : target[name]
@@ -103,6 +100,34 @@ const PendenciaController = {
                 return res.send('Proposta vw inexistente')
             }
 
+            if(result.status === 'PENDENTE') {
+                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            } else if (result.status === 'ANEXAR EXTRATO DE CONSIGNACOES') {
+                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            } else if (result.status === 'MODALIDADE DIVERGENTE ENTRE CSG E CONTRATO') {
+                result.status = 'CADASTRO RESOLVIDO';
+            } else if (result.status === 'CONVENIO DIVERGENTE DA CCB') {
+                result.status = 'CADASTRO RESOLVIDO';
+            } else if (result.status === 'INFORMAR TABELA DE SALDO') {
+                result.status = 'NOVO CONTATO INFORMADO';
+            } else if (result.status === 'SALDO COLETAR ASSINATURA') {
+                result.status = 'PROP ATUALIZADA - BRADESCO';
+            } else if (result.status === 'SALDO RECEBIDO - AGUARDANDO AUTORIZACAO') {
+                result.status = 'PROP ATUALIZADA - AUTORIZADO';
+            } else if (result.status === 'SALDO - PENDENTE NS') {
+                result.status = ' SALDO - PENDENCIA REGULARIZADA';
+            } else if (result.status === 'SALDO - PENDENTE NS SMS') {
+                result.status = 'SALDO - PENDENCIA REGULARIZADA SMS';
+            } else if (result.status === 'SEM CONTATO COM O CLIENTE - SALDO BRADESCO') {
+                result.status = 'PROP ATUALIZADA - NAO AUTORIZADO';
+            } else if (result.status === 'SALDO A MAIOR MOBILE COLETAR ASSINATURA') {
+                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            } else if (result.status === 'SEM CONTATO COM O CLIENTE - ANEXAR GRAVACAO') {
+                result.status = ' PROP ALTERADA - ATUALIZADA SALDO A MAIOR';
+            } else {
+                result.status = null;
+            }
+
             result.novo_proposta = novo_proposta
             result.obs_pendencia = obs_pendencia
             //autoriza saldo 
@@ -131,34 +156,8 @@ const PendenciaController = {
             result.banco = banco
             result.agencia = agencia
             result.conta_cliente = conta_cliente
-            if(result.status === 'PENDENTE') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'ANEXAR EXTRATO DE CONSIGNACOES') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'MODALIDADE DIVERGENTE ENTRE CSG E CONTRATO') {
-                result.status = 'CADASTRO RESOLVIDO';
-            } else if (result.status === 'CONVENIO DIVERGENTE DA CCB') {
-                result.status = 'CADASTRO RESOLVIDO';
-            } else if (result.status === 'INFORMAR TABELA DE SALDO') {
-                result.status = 'NOVO CONTATO INFORMADO';
-            } else if (result.status === 'SALDO COLETAR ASSINATURA') {
-                result.status = 'PROP ATUALIZADA - BRADESCO';
-            } else if (result.status === 'SALDO RECEBIDO - AGUARDANDO AUTORIZACAO') {
-                result.status = 'PROP ATUALIZADA - AUTORIZADO';
-            } else if (result.status === 'SALDO - PENDENTE NS') {
-                result.status = ' SALDO - PENDENCIA REGULARIZADA';
-            } else if (result.status === 'SALDO - PENDENTE NS SMS') {
-                result.status = 'SALDO - PENDENCIA REGULARIZADA SMS';
-            } else if (result.status === 'SEM CONTATO COM O CLIENTE - SALDO BRADESCO') {
-                result.status = 'PROP ATUALIZADA - NAO AUTORIZADO';
-            } else if (result.status === 'SALDO A MAIOR MOBILE COLETAR ASSINATURA') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'SEM CONTATO COM O CLIENTE - ANEXAR GRAVACAO') {
-                result.status = ' PROP ALTERADA - ATUALIZADA SALDO A MAIOR';
-            } else {
-                result.status = null;
-            }
             result.save();
+            
             return res.json(result);
 
         } catch (error) {
