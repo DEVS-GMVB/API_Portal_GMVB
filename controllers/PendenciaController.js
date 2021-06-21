@@ -185,37 +185,8 @@ const PendenciaController = {
         }
     },
 
-    Modal4: async (req, res) => {
-        const codigo = req.query.codigo;
-
-        let {
-            arquivo_pendente1,
-            arquivo_pendente2,
-            arquivo_pendente1n,
-            arquivo_pendente2n
-        } = req.body;
-
-        arquivo_pendente1 ? arquivo_pendente1 = arquivo_pendente1.originalname[0] : arquivo_pendente1 = null;
-        arquivo_pendente2 ? arquivo_pendente2 = arquivo_pendente2.originalname[0] : arquivo_pendente2 = null;
-        arquivo_pendente1n ? arquivo_pendente1n = arquivo_pendente1n.originalname[0] : arquivo_pendente1n = null;
-        arquivo_pendente2n ? arquivo_pendente2n = arquivo_pendente2n.originalname[0] : arquivo_pendente2n = null;
-
-        const resultUpdate = await propostas.findOne({
-            where: {
-                proposta: codigo
-            }
-        });
-
-        if (resultUpdate) {
-            resultUpdate.arquivo_pendente1 = arquivo_pendente1;
-            resultUpdate.arquivo_pendente2 = arquivo_pendente2;
-            resultUpdate.arquivo_pendente1n = arquivo_pendente1n;
-
-        }
-    },
-
     UploadFiles: async (req, res) => {
-        const codigo = req.query.codigo;
+        const proposta = req.query.proposta;
 
         const hash = req.body.hash;
 
@@ -299,7 +270,7 @@ const PendenciaController = {
 
             const resultData = await propostas.findOne({
                 where: {
-                    codigo
+                    proposta
                 }
             });
 
