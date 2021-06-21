@@ -63,21 +63,6 @@ const PendenciaController = {
             novo_proposta,
             obs_pendencia,
             tipo,
-            saldo_port1,
-            saldo_port2,
-            saldo_port3,
-            arquivo_pendente1,
-            arquivo_pendente2,
-            arquivo_pendente1n,
-            arquivo_pendente2n,
-            arq_cad1,
-            arq_cad2,
-            arq_cad3,
-            arq_cad4,
-            arq_cad1n,
-            arq_cad2n,
-            arq_cad3n,
-            arq_cad4n,
             convenio,
             produto,
             telefone,
@@ -100,54 +85,39 @@ const PendenciaController = {
                 return res.send('Proposta vw inexistente')
             }
 
-            if(result.status === 'PENDENTE') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'ANEXAR EXTRATO DE CONSIGNACOES') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'MODALIDADE DIVERGENTE ENTRE CSG E CONTRATO') {
-                result.status = 'CADASTRO RESOLVIDO';
-            } else if (result.status === 'CONVENIO DIVERGENTE DA CCB') {
-                result.status = 'CADASTRO RESOLVIDO';
-            } else if (result.status === 'INFORMAR TABELA DE SALDO') {
-                result.status = 'NOVO CONTATO INFORMADO';
-            } else if (result.status === 'SALDO COLETAR ASSINATURA') {
-                result.status = 'PROP ATUALIZADA - BRADESCO';
-            } else if (result.status === 'SALDO RECEBIDO - AGUARDANDO AUTORIZACAO') {
-                result.status = 'PROP ATUALIZADA - AUTORIZADO';
-            } else if (result.status === 'SALDO - PENDENTE NS') {
-                result.status = ' SALDO - PENDENCIA REGULARIZADA';
-            } else if (result.status === 'SALDO - PENDENTE NS SMS') {
-                result.status = 'SALDO - PENDENCIA REGULARIZADA SMS';
-            } else if (result.status === 'SEM CONTATO COM O CLIENTE - SALDO BRADESCO') {
-                result.status = 'PROP ATUALIZADA - NAO AUTORIZADO';
-            } else if (result.status === 'SALDO A MAIOR MOBILE COLETAR ASSINATURA') {
-                result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
-            } else if (result.status === 'SEM CONTATO COM O CLIENTE - ANEXAR GRAVACAO') {
-                result.status = ' PROP ALTERADA - ATUALIZADA SALDO A MAIOR';
-            } else {
-                result.status = null;
-            }
+            // if(result.status === 'PENDENTE') {
+            //     result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            // } else if (result.status === 'ANEXAR EXTRATO DE CONSIGNACOES') {
+            //     result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            // } else if (result.status === 'MODALIDADE DIVERGENTE ENTRE CSG E CONTRATO') {
+            //     result.status = 'CADASTRO RESOLVIDO';
+            // } else if (result.status === 'CONVENIO DIVERGENTE DA CCB') {
+            //     result.status = 'CADASTRO RESOLVIDO';
+            // } else if (result.status === 'INFORMAR TABELA DE SALDO') {
+            //     result.status = 'NOVO CONTATO INFORMADO';
+            // } else if (result.status === 'SALDO COLETAR ASSINATURA') {
+            //     result.status = 'PROP ATUALIZADA - BRADESCO';
+            // } else if (result.status === 'SALDO RECEBIDO - AGUARDANDO AUTORIZACAO') {
+            //     result.status = 'PROP ATUALIZADA - AUTORIZADO';
+            // } else if (result.status === 'SALDO - PENDENTE NS') {
+            //     result.status = ' SALDO - PENDENCIA REGULARIZADA';
+            // } else if (result.status === 'SALDO - PENDENTE NS SMS') {
+            //     result.status = 'SALDO - PENDENCIA REGULARIZADA SMS';
+            // } else if (result.status === 'SEM CONTATO COM O CLIENTE - SALDO BRADESCO') {
+            //     result.status = 'PROP ATUALIZADA - NAO AUTORIZADO';
+            // } else if (result.status === 'SALDO A MAIOR MOBILE COLETAR ASSINATURA') {
+            //     result.status = 'SALDO A MAIOR COLETAR ASSINATURA';
+            // } else if (result.status === 'SEM CONTATO COM O CLIENTE - ANEXAR GRAVACAO') {
+            //     result.status = ' PROP ALTERADA - ATUALIZADA SALDO A MAIOR';
+            // } else {
+            //     result.status = null;
+            // }
 
             result.novo_proposta = novo_proposta
             result.obs_pendencia = obs_pendencia
             //autoriza saldo 
             //tabela 
             result.tipo = tipo
-            result.saldo_port1 = saldo_port1
-            result.saldo_port2 = saldo_port2
-            result.saldo_port3 = saldo_port3
-            result.arquivo_pendente1 = arquivo_pendente1
-            result.arquivo_pendente2 = arquivo_pendente2
-            result.arquivo_pendente1n = arquivo_pendente1n
-            result.arquivo_pendente2n = arquivo_pendente2n
-            result.arq_cad1 = arq_cad1
-            result.arq_cad2 = arq_cad2
-            result.arq_cad3 = arq_cad3
-            result.arq_cad4 = arq_cad4
-            result.arq_cad1n = arq_cad1n
-            result.arq_cad2n = arq_cad2n
-            result.arq_cad3n = arq_cad3n
-            result.arq_cad4n = arq_cad4n
             result.convenio = convenio
             result.produto = produto
             result.telefone = telefone
@@ -185,37 +155,8 @@ const PendenciaController = {
         }
     },
 
-    Modal4: async (req, res) => {
-        const codigo = req.query.codigo;
-
-        let {
-            arquivo_pendente1,
-            arquivo_pendente2,
-            arquivo_pendente1n,
-            arquivo_pendente2n
-        } = req.body;
-
-        arquivo_pendente1 ? arquivo_pendente1 = arquivo_pendente1.originalname[0] : arquivo_pendente1 = null;
-        arquivo_pendente2 ? arquivo_pendente2 = arquivo_pendente2.originalname[0] : arquivo_pendente2 = null;
-        arquivo_pendente1n ? arquivo_pendente1n = arquivo_pendente1n.originalname[0] : arquivo_pendente1n = null;
-        arquivo_pendente2n ? arquivo_pendente2n = arquivo_pendente2n.originalname[0] : arquivo_pendente2n = null;
-
-        const resultUpdate = await propostas.findOne({
-            where: {
-                proposta: codigo
-            }
-        });
-
-        if (resultUpdate) {
-            resultUpdate.arquivo_pendente1 = arquivo_pendente1;
-            resultUpdate.arquivo_pendente2 = arquivo_pendente2;
-            resultUpdate.arquivo_pendente1n = arquivo_pendente1n;
-
-        }
-    },
-
     UploadFiles: async (req, res) => {
-        const codigo = req.query.codigo;
+        const proposta = req.query.proposta;
 
         const hash = req.body.hash;
 
@@ -299,7 +240,7 @@ const PendenciaController = {
 
             const resultData = await propostas.findOne({
                 where: {
-                    codigo
+                    proposta
                 }
             });
 
@@ -331,23 +272,6 @@ const PendenciaController = {
             console.error(error);
         }
     },
-
-    ObterArquivo: async (req, res) => {
-        const hashFile = req.query.hash;
-        //"tmp/uploads/" + hashFile;
-        const file = path.join("tmp", "uploads", hashFile);
-
-        const filename = path.basename(file);
-        const mimetype = await mime.lookup(file);
-
-        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-        res.setHeader('Content-type', mimetype);
-
-        var filestream = await fs.createReadStream(file);
-        filestream.pipe(res);
-
-        return res.download(filestream);
-    }
 
 
 }

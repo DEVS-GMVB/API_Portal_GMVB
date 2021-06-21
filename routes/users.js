@@ -616,6 +616,5 @@ router.post('/pendencia/arquivo', multer(multerConfig).fields([
         maxCount: 1
     }
 ]), PendenciaController.UploadFiles);
-router.post('/pendencia/download', PendenciaController.ObterArquivo);
 
 module.exports = router;
