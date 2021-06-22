@@ -33,7 +33,6 @@ const PropostaController = {
             banco,
             data_envio,
             data_atualizacao,
-            correntista,
             sub_status,
             classificacao,
             situacao,
@@ -54,7 +53,6 @@ const PropostaController = {
             validade_contrato,
             etapa_sms,
             tipo_banco,
-
         } = req.body;
 
         var where = {};
@@ -84,7 +82,6 @@ const PropostaController = {
         if (usuario_master) where.usuario_master = usuario_master;
         if (supervisor) where.supervisor = supervisor;
         if (sms) where.sms = sms;
-        //if (correntista) where.correntista = correntista;
         if (gerente) where.gerente = gerente;
         if (tipo_parceiro2) where.tipo_parceiro2 = tipo_parceiro2;
         if (data_corte) where.data_corte = data_corte;
