@@ -82,7 +82,8 @@ module.exports = (sequelize, DataTypes) => {
         mes_atualizacao: DataTypes.STRING,
         tipo_banco: DataTypes.STRING,
         login_cetelem: DataTypes.STRING,
-        id_sim: DataTypes.STRING
+        id_sim: DataTypes.STRING,
+        arquivo1: DataTypes.STRING
     }, {
         tableName: 'vw_proposta',
         timestamps: false
