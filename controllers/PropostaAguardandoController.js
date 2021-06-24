@@ -387,7 +387,27 @@ const PropostaAguardandoController = {
         filestream.pipe(res);
 
         return res.download(filestream);
-    }
+    },
+
+    ModalCnpj: async(req, res) => {
+        try{
+
+            const {
+                cnpj
+            } = req.body;
+
+            const dadosCadastro = await cadastro.findOne({
+                where: {
+                    cnpj
+                }
+            })
+            return res.status(200).send(dadosCadastro)
+
+        } catch (error) {
+            console.log(error)
+            res.send(error);
+        }
+    },
 }
 
 module.exports = PropostaAguardandoController;
