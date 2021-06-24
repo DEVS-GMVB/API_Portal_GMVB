@@ -617,4 +617,8 @@ router.post('/pendencia/arquivo', multer(multerConfig).fields([
     }
 ]), PendenciaController.UploadFiles);
 
+//Meu Perfil
+router.put('/perfil', CadastroController.UpdateMyProfile);
+router.post('/perfil/modal', CadastroController.ModalCnpj);
+
 module.exports = router;
