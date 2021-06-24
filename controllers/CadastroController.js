@@ -698,4 +698,4 @@ const CadastroController = {
     },
 
 }
-module.exports = CadastroController
+module.exports = CadastroController;    
