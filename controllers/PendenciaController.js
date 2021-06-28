@@ -199,8 +199,6 @@ const PendenciaController = {
         for (let i in listHash) {
             let tempHash = listHash[i].substring(34, listHash[i].lenght);
 
-            console.log(arquivo_pendente1);
-
             if (tempHash === arquivo_pendente1) {
                 arquivo_pendente1 = listHash[i];
             } else if (tempHash === arquivo_pendente1n) {

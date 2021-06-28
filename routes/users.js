@@ -39,6 +39,7 @@ const TblUsuarioController = require('../controllers/TblUsuarioController');
 const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
 const ProducaoController = require('../controllers/ProducaoController');
 const PendenciaController = require('../controllers/PendenciaController');
+const TreinamentosController = require('../controllers/TreinamentoController');
 
 //teste
 router.get('/', (req, res) => {
@@ -620,5 +621,8 @@ router.post('/pendencia/arquivo', multer(multerConfig).fields([
 //Meu Perfil
 router.put('/perfil', CadastroController.UpdateMyProfile);
 router.post('/perfil/modal', CadastroController.ModalCnpj);
+
+//Treinamento
+router.get('/treinamentos/:dir/:hash', TreinamentosController.DownloadFile);
 
 module.exports = router;
