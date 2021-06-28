@@ -31,6 +31,9 @@ const ComunicadoController = {
     },
 
     Anexo: async (req, res) => {
+        const hashList = Object.keys(req.body.hash);
+
+
         let {
             url_img,
             url_img1,
@@ -45,7 +48,20 @@ const ComunicadoController = {
         (url_img1) ? url_img1 = req.files.url_img1[0].originalname: url_img1 = null;
         (url_img2) ? url_img2 = req.files.url_img2[0].originalname: url_img2 = null;
 
-        
+        for (let i in hashList) {
+            let temp = hashList[i].substring(34, hashList[i].length);
+
+            if(url_img === temp) {
+                url_img = hashList[i];
+            } else if (url_img1 === temp) {
+                url_img1 = hashList[i];
+            } else if (url_img2 === temp) {
+                url_img2 = hashList[i];
+            } else {
+                temp = "";
+            }
+        }
+
 
         try {
             const Comunicado = await comunicado.findOne({
