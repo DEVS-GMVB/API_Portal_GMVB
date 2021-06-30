@@ -4,21 +4,15 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
-
-
 const app = express();
 
 //carregamento de rotas
 
 const usersRoute = require('./routes/users'); //importatando de rotas
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 //configurando cors
 app.use((req, res, next) => {
@@ -28,7 +22,6 @@ app.use((req, res, next) => {
     app.use(cors());
     next();
 });
-
 
 //implementando rotas
 

@@ -677,8 +677,8 @@ const CadastroController = {
         });
     },
 
-    ModalCnpj: async(req, res) => {
-        try{
+    ModalCnpj: async (req, res) => {
+        try {
 
             const {
                 cnpj
@@ -697,5 +697,28 @@ const CadastroController = {
         }
     },
 
+    InclusaoCadastroClt: async (req, res) => {
+        let campos = {};
+
+        if (!req.body.cnpj) {
+            return res.json({
+                message: "CNPJ veio vazio"
+            });
+        }
+
+        campos = new Object(req.body);
+
+        const resultadoInsercao = await cadastro.create({
+            ...campos
+        });
+
+        if (resultadoInsercao)
+            return res.json(resultadoInsercao);
+
+        return res.json({ message: "Objeto criado vazio" });
+
+        
+    }
+
 }
-module.exports = CadastroController;    
+module.exports = CadastroController;

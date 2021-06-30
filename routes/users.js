@@ -625,4 +625,7 @@ router.post('/perfil/modal', CadastroController.ModalCnpj);
 //Treinamento
 router.get('/treinamentos/:dir/:hash', TreinamentosController.DownloadFile);
 
+// rota de Cadastro CLT
+router.post('/cadastral', CadastroController.InclusaoCadastroClt);
+
 module.exports = router;
