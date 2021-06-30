@@ -274,7 +274,20 @@ module.exports = (sequelize, DataTypes) => {
         tabela_multi: DataTypes.STRING,
         tabela_sim: DataTypes.STRING,
         superintendente: DataTypes.STRING,
-        tipo_documento: DataTypes.STRING
+        tipo_documento: DataTypes.STRING,
+        escolaridade: DataTypes.STRING,
+        estado_civil: DataTypes.STRING,
+        curso: DataTypes.STRING,
+        numero_reservista: DataTypes.STRING,
+        titulo_eleitor: DataTypes.STRING,
+        ctps: DataTypes.STRING,
+        nome_pai: DataTypes.STRING,
+        zona_titulo: DataTypes.STRING,
+        secao_titulo: DataTypes.STRING,
+        serie_ctps: DataTypes.STRING,
+        estado_ctps: DataTypes.STRING,
+        data_ctps: DataTypes.STRING,
+        uf_rg: DataTypes.STRING
     }, {
         tableName: 'cadastro',
         timestamps: false

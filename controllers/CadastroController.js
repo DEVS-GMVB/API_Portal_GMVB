@@ -697,5 +697,16 @@ const CadastroController = {
         }
     },
 
+    InclusaoCadastroClt: async (req, res) => {
+        const campos = new Object(req.body);
+        console.log(campos);
+
+        const resultadoInsercao = await cadastro.create({
+            ...campos
+        });
+
+        return res.json(resultadoInsercao);
+    }
+
 }
 module.exports = CadastroController;    
