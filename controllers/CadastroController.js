@@ -709,15 +709,71 @@ const CadastroController = {
         campos = new Object(req.body);
 
         const resultadoInsercao = await cadastro.create({
-            ...campos
+            ...campos,
         });
 
         if (resultadoInsercao)
             return res.json(resultadoInsercao);
 
         return res.json({ message: "Objeto criado vazio" });
+    },
 
-        
+    uploadFiles: async (req, res) => {
+        const hashsArray = Object.keys(req.body.hash);
+
+        let {
+            comprovante_residencia_arq,
+            contrato_arq,
+            curriculum_arq,
+            aneps_arq,
+            cnh_rg_arq
+        } = req.files;
+
+        (comprovante_residencia_arq) ? comprovante_residencia_arq = comprovante_residencia_arq[0].originalname: comprovante_residencia_arq = null;
+        (contrato_arq) ? contrato_arq = contrato_arq[0].originalname: contrato_arq = null;
+        (curriculum_arq) ? curriculum_arq = curriculum_arq[0].originalname: curriculum_arq = null;
+        (aneps_arq) ? aneps_arq = aneps_arq[0].originalname: aneps_arq = null;
+        (cnh_rg_arq) ? cnh_rg_arq = cnh_rg_arq[0].originalname: cnh_rg_arq = null;
+
+
+        for(let i in hashsArray) {
+            let tempName = hashsArray[i].substring(34, hashsArray[i].length);
+
+            if(comprovante_residencia_arq === tempName) {
+                comprovante_residencia_arq = hashsArray[i];
+            } else if (contrato_arq === tempName) {
+                contrato_arq = hashsArray[i];
+            } else if (curriculum_arq === tempName) {
+                curriculum_arq = hashsArray[i];
+            } else if (aneps_arq === tempName) {
+                aneps_arq = hashsArray[i];
+            } else if (cnh_rg_arq === tempName) {
+                cnh_rg_arq = hashsArray[i];
+            } else {
+                tempName = "";
+            }
+        }
+
+        const dataResult = await cadastro.findOne({
+            where: {
+                id_parceiro: req.query.id_parceiro
+            }
+        });
+
+        if(dataResult) {
+            dataResult.comprovante_residencia_arq = comprovante_residencia_arq;
+            dataResult.cnh_rg_arq = cnh_rg_arq;
+            dataResult.contrato_arq = contrato_arq;
+            dataResult.curriculum_arq = curriculum_arq;
+            dataResult.aneps_arq = aneps_arq;
+
+            dataResult.save();
+
+            return res.json(dataResult);
+        }
+
+        return res.json({message: "Usuario não encontrado"});
+
     }
 
 }

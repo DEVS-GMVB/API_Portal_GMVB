@@ -287,7 +287,9 @@ module.exports = (sequelize, DataTypes) => {
         serie_ctps: DataTypes.STRING,
         estado_ctps: DataTypes.STRING,
         data_ctps: DataTypes.STRING,
-        uf_rg: DataTypes.STRING
+        uf_rg: DataTypes.STRING,
+        cracha: DataTypes.STRING,
+        filhos: DataTypes.STRING
     }, {
         tableName: 'cadastro',
         timestamps: false

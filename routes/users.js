@@ -627,5 +627,27 @@ router.get('/treinamentos/:dir/:hash', TreinamentosController.DownloadFile);
 
 // rota de Cadastro CLT
 router.post('/cadastral', CadastroController.InclusaoCadastroClt);
+router.post('/cadastro/arquivo', multer(multerConfig).fields([
+    {
+        name: "comprovante_residencia_arq",
+        maxCount: 1
+    },
+    {
+        name: "contrato_arq",
+        maxCount: 1
+    },
+    {
+        name: "curriculum_arq",
+        maxCount: 1
+    },
+    {
+        name: "aneps_arq",
+        maxCount: 1
+    },
+    {
+        name: "cnh_rg_arq",
+        maxCount: 1
+    }
+]), CadastroController.uploadFiles);
 
 module.exports = router;
