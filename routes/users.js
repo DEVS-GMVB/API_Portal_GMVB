@@ -647,7 +647,48 @@ router.post('/cadastro/arquivo', multer(multerConfig).fields([
     {
         name: "cnh_rg_arq",
         maxCount: 1
+    },
+    {
+        name: "rg_filhos14_arq",
+        maxCount: 1
+    },
+    {
+        name: "escolaridade_arq",
+        maxCount: 1
+    },
+    {
+        name: "pis_arq",
+        maxCount: 1
+    },
+    {
+        name: "cartao_arq",
+        maxCount: 1
+    },
+    {
+        name: "carteira_trabalho_arq",
+        maxCount: 1
+    },
+    {
+        name: "certidao_arq",
+        maxCount: 1
+    },
+    {
+        name: "outros_arq",
+        maxCount: 1
+    },
+    {
+        name: "criminais_arq",
+        maxCount: 1
+    },
+    {
+        name: "titulo_eleitor_arq",
+        maxCount: 1
+    },
+    {
+        name: "reservista_arq",
+        maxCount: 1
     }
+    
 ]), CadastroController.uploadFiles);
 
 module.exports = router;

@@ -726,14 +726,32 @@ const CadastroController = {
             contrato_arq,
             curriculum_arq,
             aneps_arq,
-            cnh_rg_arq
+            cnh_rg_arq,
+            rg_filhos14_arq,
+            escolaridade_arq,
+            pis_arq,
+            cartao_arq,
+            carteira_trabalho_arq,
+            certidao_arq,
+            outros_arq,
+            criminais_arq
         } = req.files;
 
         (comprovante_residencia_arq) ? comprovante_residencia_arq = comprovante_residencia_arq[0].originalname: comprovante_residencia_arq = null;
         (contrato_arq) ? contrato_arq = contrato_arq[0].originalname: contrato_arq = null;
         (curriculum_arq) ? curriculum_arq = curriculum_arq[0].originalname: curriculum_arq = null;
-        (aneps_arq) ? aneps_arq = aneps_arq[0].originalname: aneps_arq = null;
         (cnh_rg_arq) ? cnh_rg_arq = cnh_rg_arq[0].originalname: cnh_rg_arq = null;
+        (aneps_arq) ? aneps_arq = aneps_arq[0].originalname: aneps_arq = null;
+        (rg_filhos14_arq) ? rg_filhos14_arq = rg_filhos14_arq[0].originalname: rg_filhos14_arq = null;
+        (escolaridade_arq) ? escolaridade_arq = escolaridade_arq[0].originalname: escolaridade_arq = null;
+        (pis_arq) ? pis_arq = pis_arq[0].originalname: pis_arq = null;
+        (cartao_arq) ? cartao_arq = cartao_arq[0].originalname: cartao_arq = null;
+        (carteira_trabalho_arq) ? carteira_trabalho_arq = carteira_trabalho_arq[0].originalname: carteira_trabalho_arq = null;
+        (certidao_arq) ? certidao_arq = certidao_arq[0].originalname: certidao_arq = null;
+        (outros_arq) ? outros_arq = outros_arq[0].originalname: outros_arq = null;
+        (criminais_arq) ? criminais_arq = criminais_arq[0].originalname: criminais_arq = null;
+        (titulo_eleitor_arq) ? titulo_eleitor_arq = titulo_eleitor_arq[0].originalname: titulo_eleitor_arq = null;
+        (reservista_arq) ? reservista_arq = reservista_arq[0].originalname: reservista_arq = null;
 
 
         for(let i in hashsArray) {
@@ -749,6 +767,26 @@ const CadastroController = {
                 aneps_arq = hashsArray[i];
             } else if (cnh_rg_arq === tempName) {
                 cnh_rg_arq = hashsArray[i];
+            } else if (rg_filhos14_arq === tempName) {
+                rg_filhos14_arq = hashsArray[i];
+            } else if (escolaridade_arq === tempName) {
+                escolaridade_arq = hashsArray[i];
+            } else if (pis_arq === tempName) {
+                pis_arq = hashsArray[i];
+            } else if (cartao_arq === tempName) {
+                cartao_arq = hashsArray[i];
+            } else if (carteira_trabalho_arq === tempName) {
+                carteira_trabalho_arq = hashsArray[i];
+            } else if (certidao_arq === tempName) {
+                certidao_arq = hashsArray[i];
+            } else if (outros_arq === tempName) {
+                outros_arq = hashsArray[i];
+            } else if (criminais_arq === tempName) {
+                criminais_arq = hashsArray[i];
+            } else if (titulo_eleitor_arq === tempName) {
+                titulo_eleitor_arq = hashsArray[i];
+            } else if (reservista_arq === tempName) {
+                reservista_arq = hashsArray[i]
             } else {
                 tempName = "";
             }
@@ -766,6 +804,16 @@ const CadastroController = {
             dataResult.contrato_arq = contrato_arq;
             dataResult.curriculum_arq = curriculum_arq;
             dataResult.aneps_arq = aneps_arq;
+            dataResult.rg_filhos14_arq = rg_filhos14_arq;
+            dataResult.escolaridade_arq = escolaridade_arq;
+            dataResult.pis_arq = pis_arq;
+            dataResult.cartao_arq = cartao_arq;
+            dataResult.carteira_trabalho_arq = carteira_trabalho_arq;
+            dataResult.certidao_arq = certidao_arq;
+            dataResult.outros_arq = outros_arq;
+            dataResult.criminais_arq = criminais_arq;
+            dataResult.titulo_eleitor_arq = titulo_eleitor_arq;
+            dataResult.reservista_arq = reservista_arq;
 
             dataResult.save();
 

@@ -289,7 +289,17 @@ module.exports = (sequelize, DataTypes) => {
         data_ctps: DataTypes.STRING,
         uf_rg: DataTypes.STRING,
         cracha: DataTypes.STRING,
-        filhos: DataTypes.STRING
+        filhos: DataTypes.STRING,
+        rg_filhos14_arq: DataTypes.STRING,
+        escolaridade_arq: DataTypes.STRING,
+        pis_arq: DataTypes.STRING,
+        cartao_arq: DataTypes.STRING,
+        carteira_trabalho_arq: DataTypes.STRING,
+        certidao_arq: DataTypes.STRING,
+        criminais_arq: DataTypes.STRING,
+        outros_arq: DataTypes.STRING,
+        titulo_eleitor_arq: DataTypes.STRING,
+        reservista_arq: DataTypes.STRING
     }, {
         tableName: 'cadastro',
         timestamps: false
