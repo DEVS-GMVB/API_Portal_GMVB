@@ -37,11 +37,15 @@ const ControleFilasController = require("../controllers/ControleFilasController"
 const PropostaBbController = require('../controllers/PropostaBbController');
 const TblUsuarioController = require('../controllers/TblUsuarioController');
 const PropostaAguardandoController = require('../controllers/PropostaAguardandoController');
+const AntiFraudeController = require('../controllers/AntiFraudeController');
+const RoboSimController = require('../controllers/RoboSimController');
+const RelatorioSimController = require('../controllers/RelatorioSimController');
 
 //teste
 router.get('/', (req, res) => {
     res.send('ok');
 })
+
 // rota para fazer login no portal
 router.post('/login', UserController.Login);
 
@@ -450,6 +454,37 @@ router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);
 router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);  
 router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf); 
 router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes); 
+
+
+//Antifraude
+
+router.post('/Antifraude/brtInsert', AntiFraudeController.Incluir); // BRT e unico
+router.post('/Antifraude/brtUpdate', AntiFraudeController.Alterar); // BRT e unico
+router.post('/Antifraude/brtSelectMailing', AntiFraudeController.selectMailings); 
+router.post('/Antifraude/brtSelectArquivos', AntiFraudeController.selectArquivos); 
+router.post('/Antifraude/brasilInDoc', AntiFraudeController.selectBrasilIndoc); 
+
+
+//roboSim Atualizacao propostas
+router.post('/roboSim/select', RoboSimController.select); 
+router.post('/roboSim/update', RoboSimController.update); 
+router.post('/roboSim/filtro', RoboSimController.selecaoFiltro); 
+
+//relatorio SIM
+router.post('/vw/relatorio', RelatorioSimController.selectView);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);

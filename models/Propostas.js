@@ -12,12 +12,15 @@ module.exports = (sequelize, DataTypes) => {
         proposta:DataTypes.STRING, 
         nome:DataTypes.STRING, 
         cpf:DataTypes.STRING, 
+        cidade_ip : DataTypes.INTEGER,
+        estado_ip : DataTypes.INTEGER,
         entregue:DataTypes.STRING, 
         convenio:DataTypes.STRING, 
         tipo:DataTypes.STRING, 
         status:DataTypes.STRING, 
         novo_proposta:DataTypes.STRING, 
         numero_portabilidade:DataTypes.STRING, 
+        data_nascimento:DataTypes.STRING,
         previsao_retorno:DataTypes.STRING, 
         observacao:DataTypes.STRING,
         empresa:DataTypes.STRING, 
@@ -62,8 +65,7 @@ module.exports = (sequelize, DataTypes) => {
         gravacao:DataTypes.STRING, 
         tipo_cliente:DataTypes.STRING, 
         salario:DataTypes.STRING, 
-        margem:DataTypes.STRING, 
-        data_nascimento:DataTypes.STRING, 
+        margem:DataTypes.STRING,  
         tipo_conta:DataTypes.STRING, 
         parcela:DataTypes.STRING, 
         conjuge:DataTypes.STRING, 
@@ -374,4 +376,4 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
     return propostaOriginal;
-};
+};//

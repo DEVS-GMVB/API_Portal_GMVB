@@ -1,8 +1,18 @@
-const config = {
-    host: 'database.grupogmvb.com', //18.299.217.146
-    username: 'dev', //grupogmvb
-    password: 'Dev@2021', //bruno0422LA
-    database: 'base_dev', //grupogmvb
+// const config = {
+//     host: 'database.grupogmvb.com', 
+//     username: 'dev',
+//     password: 'Dev@2021',
+//     database: 'base_dev', 
+//     dialect: 'mysql'
+//   }
+  
+//   module.exports = config;
+
+  const config = {
+    host: "database.grupogmvb.com",
+    username: "grupogmvb",
+    password: "bruno0422LA",
+    database: "grupogmvb",
     dialect: 'mysql'
   }
   
