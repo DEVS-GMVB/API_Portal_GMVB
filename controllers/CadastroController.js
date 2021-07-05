@@ -734,7 +734,9 @@ const CadastroController = {
             carteira_trabalho_arq,
             certidao_arq,
             outros_arq,
-            criminais_arq
+            criminais_arq,
+            titulo_eleitor_arq,
+            reservista_arq
         } = req.files;
 
         (comprovante_residencia_arq) ? comprovante_residencia_arq = comprovante_residencia_arq[0].originalname: comprovante_residencia_arq = null;
