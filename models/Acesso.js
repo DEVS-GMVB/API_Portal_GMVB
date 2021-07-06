@@ -48,7 +48,22 @@ module.exports = (sequelize, DataTypes) => {
         consorcio_caixa:DataTypes.STRING, 
         crefisa:DataTypes.STRING,
         itau:DataTypes.STRING, 
-        token:DataTypes.STRING
+        token:DataTypes.STRING,
+        senha_pan: DataTypes.STRING,
+        senha_cetelem: DataTypes.STRING,
+        senha_itau: DataTypes.STRING,
+        senha_bmg: DataTypes.STRING,
+        senha_f5itau: DataTypes.STRING,
+        senha_daycoval: DataTypes.STRING,
+        senha_sim: DataTypes.STRING,
+        senha_safra: DataTypes.STRING,
+        senha_bradesco: DataTypes.STRING,
+        senha_parana: DataTypes.STRING,
+        senha_crefisa: DataTypes.STRING,
+        senha_consorcio_bb: DataTypes.STRING,
+        senha_consorcio_caixa: DataTypes.STRING,
+        senha_consorcio_itau: DataTypes.STRING,
+        senha_ole: DataTypes.STRING
       },{
           tableName: 'acessos',
           timestamps:false

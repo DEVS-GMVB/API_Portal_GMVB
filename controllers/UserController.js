@@ -47,7 +47,7 @@ const UserController = {
         })
 
         return res.status(200).send({
-            user : user,
+            user: user,
             supervisor_cpf: buscaCpfSupervisor.cnpj,
             gerente_cpf: buscaCpfGerente.cnpj
         });
@@ -182,7 +182,22 @@ const UserController = {
             consorcio_itau,
             consorcio_caixa,
             crefisa,
-            itau
+            itau,
+            senha_pan,
+            senha_cetelem,
+            senha_itau,
+            senha_bmg,
+            senha_f5itau,
+            senha_daycoval,
+            senha_sim,
+            senha_safra,
+            senha_bradesco,
+            senha_parana,
+            senha_crefisa,
+            senha_consorcio_bb,
+            senha_consorcio_caixa,
+            senha_consorcio_itau,
+            senha_ole
         } = req.body;
 
         let data_cadastro = new Date();
@@ -243,6 +258,21 @@ const UserController = {
                 consorcio_caixa,
                 crefisa,
                 itau,
+                senha_pan,
+                senha_cetelem,
+                senha_itau,
+                senha_bmg,
+                senha_f5itau,
+                senha_daycoval,
+                senha_sim,
+                senha_safra,
+                senha_bradesco,
+                senha_parana,
+                senha_crefisa,
+                senha_consorcio_bb,
+                senha_consorcio_caixa,
+                senha_consorcio_itau,
+                senha_ole
             }, {
                 isNewRecord: false
 
@@ -351,7 +381,22 @@ const UserController = {
             consorcio_itau,
             consorcio_caixa,
             crefisa,
-            itau
+            itau,
+            senha_pan,
+            senha_cetelem,
+            senha_itau,
+            senha_bmg,
+            senha_f5itau,
+            senha_daycoval,
+            senha_sim,
+            senha_safra,
+            senha_bradesco,
+            senha_parana,
+            senha_crefisa,
+            senha_consorcio_bb,
+            senha_consorcio_caixa,
+            senha_consorcio_itau,
+            senha_ole
         } = req.body
 
         const user = await acessos.findOne({
@@ -404,7 +449,21 @@ const UserController = {
         user.consorcio_caixa = consorcio_caixa;
         user.crefisa = crefisa;
         user.itau = itau;
-
+        user.senha_pan = senha_pan;
+        user.senha_cetelem = senha_cetelem;
+        user.senha_itau = senha_itau;
+        user.senha_bmg = senha_bmg;
+        user.senha_f5itau = senha_f5itau;
+        user.senha_daycoval = senha_daycoval;
+        user.senha_sim = senha_sim;
+        user.senha_safra = senha_safra;
+        user.senha_bradesco = senha_bradesco;
+        user.senha_parana = senha_parana;
+        user.senha_crefisa = senha_crefisa;
+        user.senha_consorcio_bb = senha_consorcio_bb;
+        user.senha_consorcio_caixa = senha_consorcio_caixa;
+        user.senha_consorcio_itau = senha_consorcio_itau;
+        user.senha_ole = senha_ole;
 
         user.save()
         res.send("o acesso foi alterado com sucesso")

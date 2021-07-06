@@ -300,7 +300,8 @@ module.exports = (sequelize, DataTypes) => {
         outros_arq: DataTypes.STRING,
         titulo_eleitor_arq: DataTypes.STRING,
         reservista_arq: DataTypes.STRING,
-        comprovante_residencia_arq: DataTypes.STRING
+        comprovante_residencia_arq: DataTypes.STRING,
+        senha_siglae: DataTypes.STRING
     }, {
         tableName: 'cadastro',
         timestamps: false
