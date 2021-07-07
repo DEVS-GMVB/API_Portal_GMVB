@@ -189,6 +189,7 @@ const CadastroController = {
             usa_esteira1,
             usa_siglai1,
             observacao,
+            senha_siglae
 
         } = req.body;
 
@@ -289,12 +290,14 @@ const CadastroController = {
                 prefeitura_rio_sup,
                 prefeitura_rio_ger,
                 prefeitura_rio_quat,
-                registro_clt
-            })
+                registro_clt,
+                senha_siglae
+            });
+
             // return res.status(201).send('usuario cadastrado com sucesso');
             const createdChavej = await base_chave.create({
                 chave,
-                cpf_usuario: cnpj,
+                cpf_usuario: cpf,
                 status: statusj,
                 funcao,
                 empresa,
@@ -314,14 +317,17 @@ const CadastroController = {
                 data_inativacao: data_inativacao_sigla,
                 motivo_pendencia,
                 sigla_prospect,
-                cpf_usuario_1,
+                cpf_usuario1: cpf,
                 usa_esteira1,
                 usa_siglai1,
                 observacao
             })
 
+            console.log(createdSiglae);
+
             return res.status(200).send({
-                sucesso: "usuario cadastrado com sucesso"
+                sucesso: "usuario cadastrado com sucesso",
+                dataSigla: createdSiglae
             })
 
 
@@ -359,6 +365,8 @@ const CadastroController = {
                     cpf_usuario1: cpf
                 }
             })
+
+            console.log(dadosDesigla)
 
             return res.status(200).send({
 
