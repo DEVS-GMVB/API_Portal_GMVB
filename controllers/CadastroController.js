@@ -2,7 +2,7 @@ const {
     cadastro,
     filial,
     base_chave,
-    siglae,
+    siglae: tabelaSiglae,
     acessos
 } = require('../models/');
 
@@ -178,7 +178,7 @@ const CadastroController = {
             motivo_cancelamentoj,
             tipo_chave,
             data_inativacaoj,
-            sigla,
+            siglae,
             codigo_corban,
             nome_corban,
             status_e,
@@ -291,7 +291,6 @@ const CadastroController = {
                 prefeitura_rio_ger,
                 prefeitura_rio_quat,
                 registro_clt,
-                senha_siglae
             });
 
             // return res.status(201).send('usuario cadastrado com sucesso');
@@ -308,8 +307,9 @@ const CadastroController = {
                 data_inativacao: data_inativacaoj
             })
 
-            const createdSiglae = await siglae.create({
-                siglae: sigla,
+            const createdSiglae = await tabelaSiglae.create({
+                siglae: siglae,
+                senha_siglae,
                 cpf_sigla: cnpj,
                 codigo_corban,
                 nome_corban,
@@ -321,7 +321,7 @@ const CadastroController = {
                 usa_esteira1,
                 usa_siglai1,
                 observacao
-            })
+            });
 
             console.log(createdSiglae);
 
@@ -488,7 +488,8 @@ const CadastroController = {
             cpf_usuario_1,
             usa_esteira1,
             usa_siglai1,
-            observacao
+            observacao,
+            senha_siglae
         } = req.body;
 
         try {
@@ -599,7 +600,7 @@ const CadastroController = {
             })
             tabelaChavej.chave = chave
             tabelaChavej.status = statusj,
-                tabelaChavej.funcao = funcao
+            tabelaChavej.funcao = funcao
             tabelaChavej.empresa = empresa
             tabelaChavej.data_envio = data_envio
             tabelaChavej.senha = senha
@@ -619,11 +620,12 @@ const CadastroController = {
                 }
             })
             tabelaSigla.siglae = sigla
+            tabelaSigla.senha_siglae = senha_siglae
             tabelaSigla.codigo_corban = codigo_corban
             tabelaSigla.nome_corban = nome_corban
             tabelaSigla.status_e = status_e
-            tabelaSigla.data_inativacao = data_inativacao_sigla,
-                tabelaSigla.motivo_pendencia = motivo_pendencia
+            tabelaSigla.data_inativacao = data_inativacao_sigla
+            tabelaSigla.motivo_pendencia = motivo_pendencia
             tabelaSigla.sigla_prospect = sigla_prospect
             tabelaSigla.cpf_usuario_1 = cpf_usuario_1
             tabelaSigla.usa_esteira1 = usa_esteira1
@@ -723,7 +725,9 @@ const CadastroController = {
         if (resultadoInsercao)
             return res.json(resultadoInsercao);
 
-        return res.json({ message: "Objeto criado vazio" });
+        return res.json({
+            message: "Objeto criado vazio"
+        });
     },
 
     uploadFiles: async (req, res) => {
@@ -764,10 +768,10 @@ const CadastroController = {
         (reservista_arq) ? reservista_arq = reservista_arq[0].originalname: reservista_arq = null;
 
 
-        for(let i in hashsArray) {
+        for (let i in hashsArray) {
             let tempName = hashsArray[i].substring(34, hashsArray[i].length);
 
-            if(comprovante_residencia_arq === tempName) {
+            if (comprovante_residencia_arq === tempName) {
                 comprovante_residencia_arq = hashsArray[i];
             } else if (contrato_arq === tempName) {
                 contrato_arq = hashsArray[i];
@@ -808,7 +812,7 @@ const CadastroController = {
             }
         });
 
-        if(dataResult) {
+        if (dataResult) {
             dataResult.comprovante_residencia_arq = comprovante_residencia_arq;
             dataResult.cnh_rg_arq = cnh_rg_arq;
             dataResult.contrato_arq = contrato_arq;
@@ -830,7 +834,9 @@ const CadastroController = {
             return res.json(dataResult);
         }
 
-        return res.json({message: "Usuario não encontrado"});
+        return res.json({
+            message: "Usuario não encontrado"
+        });
 
     }
 
