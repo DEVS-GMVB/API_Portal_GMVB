@@ -290,8 +290,7 @@ const CadastroController = {
                 prefeitura_rio_sup,
                 prefeitura_rio_ger,
                 prefeitura_rio_quat,
-                registro_clt,
-                senha_siglae
+                registro_clt
             });
 
             // return res.status(201).send('usuario cadastrado com sucesso');
@@ -320,7 +319,8 @@ const CadastroController = {
                 cpf_usuario1: cpf,
                 usa_esteira1,
                 usa_siglai1,
-                observacao
+                observacao,
+                senha_siglae
             })
 
             console.log(createdSiglae);
@@ -488,7 +488,8 @@ const CadastroController = {
             cpf_usuario_1,
             usa_esteira1,
             usa_siglai1,
-            observacao
+            observacao,
+            senha_siglae
         } = req.body;
 
         try {
@@ -629,6 +630,7 @@ const CadastroController = {
             tabelaSigla.usa_esteira1 = usa_esteira1
             tabelaSigla.usa_siglai1 = usa_siglai1
             tabelaSigla.observacao = observacao
+            tabelaSigla.senha_siglae = senha_siglae
 
         } catch (error) {
             console.log(error)

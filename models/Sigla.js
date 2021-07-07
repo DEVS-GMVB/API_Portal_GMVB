@@ -48,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
             arquivo7:DataTypes.STRING, 
             arquivo8:DataTypes.STRING, 
             data_inativacao:DataTypes.STRING, 
-            motivo_pendencia:DataTypes.STRING
+            motivo_pendencia:DataTypes.STRING,
+            senha_siglae: DataTypes.STRING
     }, {
         tableName: 'siglae',
         timestamps: false
