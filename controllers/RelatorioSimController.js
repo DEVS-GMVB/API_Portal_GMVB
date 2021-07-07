@@ -12,15 +12,20 @@ const RelatorioSim = {
             proposta
         } = req.body;
 
+        let now = new Date;
+        let mes = ("0" + (now.getMonth())).slice(-2);
+        let mesFormatado = parseInt(mes);//vem como mes anterior
+        let mesAtual = mesFormatado+1;
+
         const result = await vw_sim.findOne({
             where: {
                 proposta: proposta,
                 [Op.or]: [
                     {
-                    mes: "06/2021"//setar o mes dinamico com uma funcao 
+                    mes: `${mesFormatado}/2021`
                     },
                     {
-                    mes: "07/2021"
+                    mes: `${mesAtual}/2021`
                     }
                ]
             }
