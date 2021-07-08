@@ -358,7 +358,7 @@ const CadastroController = {
                 }
             })
 
-            const dadosDesigla = await siglae.findOne({
+            const dadosDesigla = await tabelaSiglae.findOne({
 
 
                 where: {
