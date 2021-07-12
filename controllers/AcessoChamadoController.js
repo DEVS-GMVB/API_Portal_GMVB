@@ -31,6 +31,19 @@ const AcessoChamadoController = {
 
         return res.json(resultObjInsert);
 
+    },
+
+    Alterar: async (req, res) => {
+        let acessoChamado = await acesso_chamado.findByPk(req.query.id);
+
+        if(acessoChamado) {
+            acessoChamado = { ...acessoChamado, ...req.body };
+        }
+
+        acessoChamado.save();
+
+        return res.json(acessoChamado);
+
     }
 }
 

@@ -695,5 +695,6 @@ router.post('/cadastro/arquivo', multer(multerConfig).fields([
 //Acesso Chamado
 router.post('/acessochamado/filtro', AcessoChamadoController.Filtro);
 router.post('/acessochamado/incluir', AcessoChamadoController.Incluir);
+router.put('/acessochamado/atualizar', AcessoChamadoController.Alterar);
 
 module.exports = router;
