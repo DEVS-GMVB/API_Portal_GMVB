@@ -40,6 +40,7 @@ const PropostaAguardandoController = require('../controllers/PropostaAguardandoC
 const ProducaoController = require('../controllers/ProducaoController');
 const PendenciaController = require('../controllers/PendenciaController');
 const TreinamentosController = require('../controllers/TreinamentoController');
+const AcessoChamadoController = require('../controllers/AcessoChamadoController');
 
 //teste
 router.get('/', (req, res) => {
@@ -690,5 +691,9 @@ router.post('/cadastro/arquivo', multer(multerConfig).fields([
     }
     
 ]), CadastroController.uploadFiles);
+
+//Acesso Chamado
+router.post('/acessochamado/filtro', AcessoChamadoController.Filtro);
+router.post('/acessochamado/incluir', AcessoChamadoController.Incluir);
 
 module.exports = router;
