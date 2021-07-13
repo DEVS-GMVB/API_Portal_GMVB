@@ -696,5 +696,33 @@ router.post('/cadastro/arquivo', multer(multerConfig).fields([
 router.post('/acessochamado/filtro', AcessoChamadoController.Filtro);
 router.post('/acessochamado/incluir', AcessoChamadoController.Incluir);
 router.put('/acessochamado/atualizar', AcessoChamadoController.Alterar);
+router.post('/acessochamado/arquivo', multer(multerConfig).fields([
+    {
+        name: "rg_arq",
+        maxCount: 1
+    },
+    {
+        name: "cpf_arq",
+        maxCount: 1
+    },
+    {
+        name: "aneps_arq",
+        maxCount: 1
+    },
+    {
+        name: "pis_arq",
+        maxCount: 1
+    },
+    {
+        name: "titulo_arq",
+        maxCount: 1
+    },
+    {
+        name: "comprovante_endereco_arq",
+        maxCount: 1
+    }
+
+]), AcessoChamadoController.UploadFiles);
+router.get("/acessochamado/download", AcessoChamadoController.DownloadArquivos);
 
 module.exports = router;
