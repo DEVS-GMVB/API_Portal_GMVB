@@ -40,7 +40,7 @@ const PropostaAguardandoController = require('../controllers/PropostaAguardandoC
 const AntiFraudeController = require('../controllers/AntiFraudeController');
 const RoboSimController = require('../controllers/RoboSimController');
 const RelatorioSimController = require('../controllers/RelatorioSimController');
-
+const AgendaReunioes = require('../controllers/AgendaReunioes');
 //teste
 router.get('/', (req, res) => {
     res.send('ok');
@@ -473,17 +473,9 @@ router.post('/roboSim/filtro', RoboSimController.selecaoFiltro);
 //relatorio SIM
 router.post('/vw/relatorio', RelatorioSimController.selectView);
 
-
-
-
-
-
-
-
-
-
-
-
+// Agenda Reunioes 
+router.post('/agenda/reunioes', AgendaReunioes.Incluir);
+router.post('/agenda/verify', AgendaReunioes.selectHorarios);
 
 
 //Relatorio SMS

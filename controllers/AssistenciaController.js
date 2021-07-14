@@ -402,7 +402,7 @@ const AssistenciaController = {
             id_empresa_banco
         } = req.body;
 
-
+        
         let
             letraA = "A100333759002500032721GRUPOMAISVALOR      033SANTANDER           " + data_hoje,
             letraA2 = "06DEBITOAUTOMATICO                                                     ",
@@ -426,7 +426,6 @@ const AssistenciaController = {
             cidade_tamanho = cidade.length,
             diferenca_caracteres_cidade = 30 - cidade_tamanho,
             espaco_cidade = ' '.repeat(diferenca_caracteres_cidade),
-
 
 
             valor_debito = valor_assistencia.toString(),
@@ -784,7 +783,7 @@ const AssistenciaController = {
 
         let client = new Client();
 
-        let remotePath = '/REMESSA/GMVB_L1_20210608.txt';
+        let remotePath = '/REMESSA/GMVB_L1_20210714.txt'; //colocar a data dinamica 
         let dst = fs.createWriteStream(`${tmpAssistenciaIkeRtorno}/teste08062021.txt`);
 
         client.connect(config)
