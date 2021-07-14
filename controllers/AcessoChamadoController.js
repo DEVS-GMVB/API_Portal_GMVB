@@ -5,10 +5,6 @@ const path = require("path");
 const mime = require('mime');
 const fs = require("fs");
 
-const path = require("path");
-const mime = require('mime');
-const fs = require("fs");
-
 const AcessoChamadoController = {
     Filtro: async (req, res) => {
         const objFields = new Object(req.body);
