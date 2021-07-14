@@ -301,6 +301,8 @@ module.exports = (sequelize, DataTypes) => {
         titulo_eleitor_arq: DataTypes.STRING,
         reservista_arq: DataTypes.STRING,
         comprovante_residencia_arq: DataTypes.STRING,
+        uf: DataTypes.STRING,
+        nacionalidade: DataTypes.STRING,
         nome_filho1: DataTypes.STRING,
         nome_filho2: DataTypes.STRING,
         nome_filho3: DataTypes.STRING,
