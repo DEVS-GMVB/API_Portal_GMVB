@@ -723,6 +723,6 @@ router.post('/acessochamado/arquivo', multer(multerConfig).fields([{
     }
 
 ]), AcessoChamadoController.UploadFiles);
-
+router.get("/acessochamado/download", AcessoChamadoController.DownloadArquivos);
 
 module.exports = router;
