@@ -28,8 +28,10 @@ const LancamentosController = require('../controllers/LancamentosController');
 const ComunicadoController = require('../controllers/ComunicadoController');
 const CalculadoraController = require('../controllers/CalculadoraController');
 const RelatorioSemanalController = require('../controllers/RelatorioSemanalController');
-const { ConsultarContratos } = require('../service/panService');
-const AssistenciaController = require ('../controllers/AssistenciaController')
+const {
+    ConsultarContratos
+} = require('../service/panService');
+const AssistenciaController = require('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
@@ -442,7 +444,7 @@ router.post('/logs/filtro', RelatorioLogController.Filtro);
 
 //Assistencia 24hs
 router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
-router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
+router.post('/assistencia/alterar', AssistenciaController.AssAlterar);
 router.post('/assistencia/filtrartodasporid', AssistenciaController.AssFiltrarTodasPorId);
 router.post('/assistencia/filtrarselecionadasporid', AssistenciaController.AssFiltrarSelecionadasPorId);
 router.post('/assistencia/filtrarParaAlterar', AssistenciaController.AssFiltrarParaAlterar);
@@ -452,10 +454,10 @@ router.post('/assistencia/updateStatus', AssistenciaController.AssUpdateStatus);
 router.post('/assistencia/emailBanco', AssistenciaController.AssSendEmailBanco);
 router.post('/assistencia/emailCliente', AssistenciaController.AssSendEmailCliente);
 router.post('/assistencia/ike', AssistenciaController.AssGerarArquivoIke);
-router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);  
-router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);  
-router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf); 
-router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes); 
+router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);
+router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);
+router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf);
+router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes);
 
 //Relatorio SMS
 router.get('/sms/substatus', RelatorioSmsController.SubStatus);
@@ -514,33 +516,33 @@ router.get('/proposta/aguardando/produto', PropostaAguardandoController.Produto)
 router.post('/proposta/aguardando/incluir', PropostaAguardandoController.Incluir);
 router.post('/proposta/aguardando/filtro', PropostaAguardandoController.Filtro);
 router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
-    name: "arquivo5",
-    macCount: 1
-},
-{
-    name: "arquivo6",
-    macCount: 1
-},
-{
-    name: "arquivo7",
-    macCount: 1
-},
-{
-    name: "arquivo8",
-    macCount: 1
-},
+        name: "arquivo5",
+        macCount: 1
+    },
+    {
+        name: "arquivo6",
+        macCount: 1
+    },
+    {
+        name: "arquivo7",
+        macCount: 1
+    },
+    {
+        name: "arquivo8",
+        macCount: 1
+    },
 
-{
-    name: "arquivo_proposta",
-    macCount: 1
-},
+    {
+        name: "arquivo_proposta",
+        macCount: 1
+    },
 
-{
-    name: "termo",
-    macCount: 1
-}
+    {
+        name: "termo",
+        macCount: 1
+    }
 
-]) ,PropostaAguardandoController.Anexo);
+]), PropostaAguardandoController.Anexo);
 
 router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
 router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
@@ -556,8 +558,7 @@ router.post("/producao/modal", ProducaoController.Modal);
 router.post("/pendencia", PendenciaController.Filtro);
 router.post('/pendencia/alterar', PendenciaController.Alterar);
 router.post('/pendencia/modal', PendenciaController.Modal);
-router.post('/pendencia/arquivo', multer(multerConfig).fields([
-    {
+router.post('/pendencia/arquivo', multer(multerConfig).fields([{
         name: "arquivo_pendente1",
         macCount: 1
     },
@@ -628,8 +629,7 @@ router.get('/treinamentos/:dir/:hash', TreinamentosController.DownloadFile);
 
 // rota de Cadastro CLT
 router.post('/cadastral', CadastroController.InclusaoCadastroClt);
-router.post('/cadastro/arquivo', multer(multerConfig).fields([
-    {
+router.post('/cadastro/arquivo', multer(multerConfig).fields([{
         name: "comprovante_residencia_arq",
         maxCount: 1
     },
@@ -689,12 +689,40 @@ router.post('/cadastro/arquivo', multer(multerConfig).fields([
         name: "reservista_arq",
         maxCount: 1
     }
-    
+
 ]), CadastroController.uploadFiles);
 
 //Acesso Chamado
 router.post('/acessochamado/filtro', AcessoChamadoController.Filtro);
 router.post('/acessochamado/incluir', AcessoChamadoController.Incluir);
 router.put('/acessochamado/atualizar', AcessoChamadoController.Alterar);
+router.get("/acessochamado/download", AcessoChamadoController.DownloadArquivos);
+router.post('/acessochamado/arquivo', multer(multerConfig).fields([{
+        name: "rg_arq",
+        maxCount: 1
+    },
+    {
+        name: "cpf_arq",
+        maxCount: 1
+    },
+    {
+        name: "aneps_arq",
+        maxCount: 1
+    },
+    {
+        name: "pis_arq",
+        maxCount: 1
+    },
+    {
+        name: "titulo_arq",
+        maxCount: 1
+    },
+    {
+        name: "comprovante_endereco_arq",
+        maxCount: 1
+    }
+
+]), AcessoChamadoController.UploadFiles);
+
 
 module.exports = router;
