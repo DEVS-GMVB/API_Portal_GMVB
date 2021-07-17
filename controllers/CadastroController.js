@@ -2,7 +2,7 @@ const {
     cadastro,
     filial,
     base_chave,
-    siglae,
+    siglae: tabelaSiglae,
     acessos
 } = require('../models/');
 
@@ -178,7 +178,7 @@ const CadastroController = {
             motivo_cancelamentoj,
             tipo_chave,
             data_inativacaoj,
-            sigla,
+            siglae,
             codigo_corban,
             nome_corban,
             status_e,
@@ -189,6 +189,7 @@ const CadastroController = {
             usa_esteira1,
             usa_siglai1,
             observacao,
+            senha_siglae
 
         } = req.body;
 
@@ -289,12 +290,13 @@ const CadastroController = {
                 prefeitura_rio_sup,
                 prefeitura_rio_ger,
                 prefeitura_rio_quat,
-                registro_clt
-            })
+                registro_clt,
+            });
+
             // return res.status(201).send('usuario cadastrado com sucesso');
             const createdChavej = await base_chave.create({
                 chave,
-                cpf_usuario: cnpj,
+                cpf_usuario: cpf,
                 status: statusj,
                 funcao,
                 empresa,
@@ -305,8 +307,9 @@ const CadastroController = {
                 data_inativacao: data_inativacaoj
             })
 
-            const createdSiglae = await siglae.create({
-                siglae: sigla,
+            const createdSiglae = await tabelaSiglae.create({
+                siglae: siglae,
+                senha_siglae,
                 cpf_sigla: cnpj,
                 codigo_corban,
                 nome_corban,
@@ -314,14 +317,17 @@ const CadastroController = {
                 data_inativacao: data_inativacao_sigla,
                 motivo_pendencia,
                 sigla_prospect,
-                cpf_usuario_1,
+                cpf_usuario1: cpf,
                 usa_esteira1,
                 usa_siglai1,
                 observacao
-            })
+            });
+
+            console.log(createdSiglae);
 
             return res.status(200).send({
-                sucesso: "usuario cadastrado com sucesso"
+                sucesso: "usuario cadastrado com sucesso",
+                dataSigla: createdSiglae
             })
 
 
@@ -352,13 +358,15 @@ const CadastroController = {
                 }
             })
 
-            const dadosDesigla = await siglae.findOne({
+            const dadosDesigla = await tabelaSiglae.findOne({
 
 
                 where: {
                     cpf_usuario1: cpf
                 }
             })
+
+            console.log(dadosDesigla)
 
             return res.status(200).send({
 
@@ -480,7 +488,8 @@ const CadastroController = {
             cpf_usuario_1,
             usa_esteira1,
             usa_siglai1,
-            observacao
+            observacao,
+            senha_siglae
         } = req.body;
 
         try {
@@ -591,7 +600,7 @@ const CadastroController = {
             })
             tabelaChavej.chave = chave
             tabelaChavej.status = statusj,
-                tabelaChavej.funcao = funcao
+            tabelaChavej.funcao = funcao
             tabelaChavej.empresa = empresa
             tabelaChavej.data_envio = data_envio
             tabelaChavej.senha = senha
@@ -611,16 +620,18 @@ const CadastroController = {
                 }
             })
             tabelaSigla.siglae = sigla
+            tabelaSigla.senha_siglae = senha_siglae
             tabelaSigla.codigo_corban = codigo_corban
             tabelaSigla.nome_corban = nome_corban
             tabelaSigla.status_e = status_e
-            tabelaSigla.data_inativacao = data_inativacao_sigla,
-                tabelaSigla.motivo_pendencia = motivo_pendencia
+            tabelaSigla.data_inativacao = data_inativacao_sigla
+            tabelaSigla.motivo_pendencia = motivo_pendencia
             tabelaSigla.sigla_prospect = sigla_prospect
             tabelaSigla.cpf_usuario_1 = cpf_usuario_1
             tabelaSigla.usa_esteira1 = usa_esteira1
             tabelaSigla.usa_siglai1 = usa_siglai1
             tabelaSigla.observacao = observacao
+            tabelaSigla.senha_siglae = senha_siglae
 
         } catch (error) {
             console.log(error)
@@ -677,8 +688,8 @@ const CadastroController = {
         });
     },
 
-    ModalCnpj: async(req, res) => {
-        try{
+    ModalCnpj: async (req, res) => {
+        try {
 
             const {
                 cnpj
@@ -697,5 +708,138 @@ const CadastroController = {
         }
     },
 
+    InclusaoCadastroClt: async (req, res) => {
+        let campos = {};
+
+        if (!req.body.cnpj) {
+            return res.json({
+                message: "CNPJ veio vazio"
+            });
+        }
+
+        campos = new Object(req.body);
+
+        const resultadoInsercao = await cadastro.create({
+            ...campos,
+        });
+
+        if (resultadoInsercao)
+            return res.json(resultadoInsercao);
+
+        return res.json({
+            message: "Objeto criado vazio"
+        });
+    },
+
+    uploadFiles: async (req, res) => {
+        const hashsArray = Object.keys(req.body.hash);
+
+        let {
+            comprovante_residencia_arq,
+            contrato_arq,
+            curriculum_arq,
+            aneps_arq,
+            cnh_rg_arq,
+            rg_filhos14_arq,
+            escolaridade_arq,
+            pis_arq,
+            cartao_arq,
+            carteira_trabalho_arq,
+            certidao_arq,
+            outros_arq,
+            criminais_arq,
+            titulo_eleitor_arq,
+            reservista_arq
+        } = req.files;
+
+        (comprovante_residencia_arq) ? comprovante_residencia_arq = comprovante_residencia_arq[0].originalname: comprovante_residencia_arq = null;
+        (contrato_arq) ? contrato_arq = contrato_arq[0].originalname: contrato_arq = null;
+        (curriculum_arq) ? curriculum_arq = curriculum_arq[0].originalname: curriculum_arq = null;
+        (cnh_rg_arq) ? cnh_rg_arq = cnh_rg_arq[0].originalname: cnh_rg_arq = null;
+        (aneps_arq) ? aneps_arq = aneps_arq[0].originalname: aneps_arq = null;
+        (rg_filhos14_arq) ? rg_filhos14_arq = rg_filhos14_arq[0].originalname: rg_filhos14_arq = null;
+        (escolaridade_arq) ? escolaridade_arq = escolaridade_arq[0].originalname: escolaridade_arq = null;
+        (pis_arq) ? pis_arq = pis_arq[0].originalname: pis_arq = null;
+        (cartao_arq) ? cartao_arq = cartao_arq[0].originalname: cartao_arq = null;
+        (carteira_trabalho_arq) ? carteira_trabalho_arq = carteira_trabalho_arq[0].originalname: carteira_trabalho_arq = null;
+        (certidao_arq) ? certidao_arq = certidao_arq[0].originalname: certidao_arq = null;
+        (outros_arq) ? outros_arq = outros_arq[0].originalname: outros_arq = null;
+        (criminais_arq) ? criminais_arq = criminais_arq[0].originalname: criminais_arq = null;
+        (titulo_eleitor_arq) ? titulo_eleitor_arq = titulo_eleitor_arq[0].originalname: titulo_eleitor_arq = null;
+        (reservista_arq) ? reservista_arq = reservista_arq[0].originalname: reservista_arq = null;
+
+
+        for (let i in hashsArray) {
+            let tempName = hashsArray[i].substring(34, hashsArray[i].length);
+
+            if (comprovante_residencia_arq === tempName) {
+                comprovante_residencia_arq = hashsArray[i];
+            } else if (contrato_arq === tempName) {
+                contrato_arq = hashsArray[i];
+            } else if (curriculum_arq === tempName) {
+                curriculum_arq = hashsArray[i];
+            } else if (aneps_arq === tempName) {
+                aneps_arq = hashsArray[i];
+            } else if (cnh_rg_arq === tempName) {
+                cnh_rg_arq = hashsArray[i];
+            } else if (rg_filhos14_arq === tempName) {
+                rg_filhos14_arq = hashsArray[i];
+            } else if (escolaridade_arq === tempName) {
+                escolaridade_arq = hashsArray[i];
+            } else if (pis_arq === tempName) {
+                pis_arq = hashsArray[i];
+            } else if (cartao_arq === tempName) {
+                cartao_arq = hashsArray[i];
+            } else if (carteira_trabalho_arq === tempName) {
+                carteira_trabalho_arq = hashsArray[i];
+            } else if (certidao_arq === tempName) {
+                certidao_arq = hashsArray[i];
+            } else if (outros_arq === tempName) {
+                outros_arq = hashsArray[i];
+            } else if (criminais_arq === tempName) {
+                criminais_arq = hashsArray[i];
+            } else if (titulo_eleitor_arq === tempName) {
+                titulo_eleitor_arq = hashsArray[i];
+            } else if (reservista_arq === tempName) {
+                reservista_arq = hashsArray[i]
+            } else {
+                tempName = "";
+            }
+        }
+
+        const dataResult = await cadastro.findOne({
+            where: {
+                id_parceiro: req.query.id_parceiro
+            }
+        });
+
+        if (dataResult) {
+            dataResult.comprovante_residencia_arq = comprovante_residencia_arq;
+            dataResult.cnh_rg_arq = cnh_rg_arq;
+            dataResult.contrato_arq = contrato_arq;
+            dataResult.curriculum_arq = curriculum_arq;
+            dataResult.aneps_arq = aneps_arq;
+            dataResult.rg_filhos14_arq = rg_filhos14_arq;
+            dataResult.escolaridade_arq = escolaridade_arq;
+            dataResult.pis_arq = pis_arq;
+            dataResult.cartao_arq = cartao_arq;
+            dataResult.carteira_trabalho_arq = carteira_trabalho_arq;
+            dataResult.certidao_arq = certidao_arq;
+            dataResult.outros_arq = outros_arq;
+            dataResult.criminais_arq = criminais_arq;
+            dataResult.titulo_eleitor_arq = titulo_eleitor_arq;
+            dataResult.reservista_arq = reservista_arq;
+
+            dataResult.save();
+
+            return res.json(dataResult);
+        }
+
+        return res.json({
+            message: "Usuario não encontrado"
+        });
+
+    }
+
 }
-module.exports = CadastroController;    
+module.exports = CadastroController;
