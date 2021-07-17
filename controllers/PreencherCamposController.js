@@ -135,7 +135,6 @@ const PreencherCamposController = {
     },
 
     SubStatus: async (req, res) => {
-        // console.log(req)
         try {
             const sub = await sub_status.findAll({
                 attributes: ['sub_status']

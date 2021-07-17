@@ -33,7 +33,6 @@ const PropostaController = {
             banco,
             data_envio,
             data_atualizacao,
-            correntista,
             sub_status,
             classificacao,
             situacao,
@@ -54,7 +53,6 @@ const PropostaController = {
             validade_contrato,
             etapa_sms,
             tipo_banco,
-
         } = req.body;
 
         var where = {};
@@ -84,7 +82,6 @@ const PropostaController = {
         if (usuario_master) where.usuario_master = usuario_master;
         if (supervisor) where.supervisor = supervisor;
         if (sms) where.sms = sms;
-        if (correntista) where.correntista = correntista;
         if (gerente) where.gerente = gerente;
         if (tipo_parceiro2) where.tipo_parceiro2 = tipo_parceiro2;
         if (data_corte) where.data_corte = data_corte;
@@ -609,7 +606,7 @@ const PropostaController = {
             cpf_gerente,
             cpf_parceiro,
             data_inclusao,
-
+            banco_origi
         } = req.body;
 
         const creatdProposta = await propostas.create({
@@ -652,7 +649,8 @@ const PropostaController = {
             cpf_supervisor,
             cpf_gerente,
             cpf_parceiro,
-            data_inclusao
+            data_inclusao,
+            banco_origi
         })
         if (creatdProposta)
             res.send(creatdProposta)
@@ -726,6 +724,7 @@ const PropostaController = {
     },
 
     PropostaArquivos: async (req, res) => {
+        const listHash = Object.keys(req.body.hash);
 
         const {
             codigo
@@ -742,8 +741,6 @@ const PropostaController = {
             outros4
         } = req.files;
 
-        console.log(proposta);
-
         (proposta) ? proposta = req.files.proposta[0].originalname: proposta = null;
         (identificacao) ? identificacao = req.files.identificacao[0].originalname: identificacao = null;
         (endereco) ? endereco = req.files.endereco[0].originalname: endereco = null;
@@ -754,14 +751,38 @@ const PropostaController = {
         (outros3) ? outros3 = req.files.outros3[0].originalname: outros3 = null;
         (outros4) ? outros4 = req.files.outros4[0].originalname: outros = null;
 
+        for (let i in listHash) {
+            let tempHash = listHash[i].substring(34, listHash[i].lenght);
+
+            if (tempHash === proposta) {
+                proposta = listHash[i];
+            } else if (tempHash === identificacao) {
+                identificacao = listHash[i];
+            } else if (tempHash === endereco) {
+                endereco = listHash[i];
+            } else if (tempHash === renda) {
+                renda = listHash[i];
+            } else if (tempHash === extratoInss) {
+                extratoInss = listHash[i];
+            } else if (tempHash === outros1) {
+                outros1 = listHash[i];
+            } else if (tempHash === outros2) {
+                outros2 = listHash[i];
+            } else if (tempHash === outros3) {
+                outros3 = listHash[i];
+            } else if (tempHash === outros4) {
+                outros4 = listHash[i];
+            } else {
+                tempHash = '';
+            }
+        }
+
         try {
             const arquivo = await propostas.findOne({
                 where: {
                     codigo
                 }
             });
-
-          
 
             arquivo.arquivo1 = proposta;
             arquivo.arquivo2 = identificacao;

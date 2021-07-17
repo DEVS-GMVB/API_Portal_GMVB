@@ -47,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
         arquivo_rc: DataTypes.STRING,
         taxaespecial: DataTypes.STRING,
         arquivo_proposta: DataTypes.STRING,
+        arquivo_pendente1: DataTypes.STRING,
+        arquivo1: DataTypes.STRING,
         validade_contrato: DataTypes.STRING,
         data_log1: DataTypes.STRING,
         sla: DataTypes.STRING,
@@ -81,7 +83,8 @@ module.exports = (sequelize, DataTypes) => {
         mes_atualizacao: DataTypes.STRING,
         tipo_banco: DataTypes.STRING,
         login_cetelem: DataTypes.STRING,
-        id_sim: DataTypes.STRING
+        id_sim: DataTypes.STRING,
+        arquivo1: DataTypes.STRING
     }, {
         tableName: 'vw_proposta',
         timestamps: false
