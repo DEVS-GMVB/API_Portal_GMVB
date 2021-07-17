@@ -5,16 +5,16 @@ const crypto = require("crypto");
 const objHash = new Object();
 
 module.exports = {
-  dest: path.resolve(__dirname, "..", "tmp", "uploads"),
+  dest: path.resolve(__dirname, "..", "tmp", "uploads", "assistencia24h", "banco", "retorno"),
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.resolve(__dirname, "..", "tmp", "uploads"));
+      cb(null, path.resolve(__dirname, "..", "tmp", "uploads", "assistencia24h", "banco", "retorno"));
     },
     filename: (req, file, cb) => {
       crypto.randomBytes(16, (err, hash) => {
         if (err) cb(err);
 
-        const filename = `${hash.toString('hex')}- ${file.originalname}`;
+        const filename = `${file.originalname}`;
 
         cb(null, filename);
 

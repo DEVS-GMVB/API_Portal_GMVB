@@ -11,7 +11,6 @@ const tmpPdfCliente = '../API_Portal_GMVB/tmp/uploads/assistencia24h/pdfs/certif
 const emailBoasVindas = '../API_Portal_GMVB/config/emailAssistencia/Assistencia.html';
 
 
-
 const AssistenciaController = {
 
 
@@ -854,6 +853,27 @@ const AssistenciaController = {
             plain: true
         })
         return res.status(200).json(assUpdateStatus)
+
+    },
+
+    downloadTxt: async (req, res) => {
+
+            const {
+                 nome_arquivo 
+             } = req.query;
+     
+           const file = `../API_PORTAL_GMVB/tmp/uploads/assistencia24h/banco/remessa/${nome_arquivo}`;
+            res.download(file); 
+  
+    },
+
+    uploadTxt: async (req, res) => {
+
+        let {
+            txt_retorno,
+        } = req.files;
+        console.log(txt_retorno)
+         return res.status(200).json("ok")
 
     }
 

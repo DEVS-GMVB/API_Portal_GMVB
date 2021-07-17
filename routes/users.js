@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const multerConfig = require('../config/multer');
+const multerConfigAssistencia = require('../config/multerAssistencia')
 const ecxelConfig = require('../config/excel');
 const UserController = require('../controllers/UserController');
 const CadastroController = require('../controllers/CadastroController');
@@ -28,8 +29,10 @@ const LancamentosController = require('../controllers/LancamentosController');
 const ComunicadoController = require('../controllers/ComunicadoController');
 const CalculadoraController = require('../controllers/CalculadoraController');
 const RelatorioSemanalController = require('../controllers/RelatorioSemanalController');
-const { ConsultarContratos } = require('../service/panService');
-const AssistenciaController = require ('../controllers/AssistenciaController')
+const {
+    ConsultarContratos
+} = require('../service/panService');
+const AssistenciaController = require('../controllers/AssistenciaController')
 const RelatorioLogController = require('../controllers/RelatorioLogController');
 const RelatorioSmsController = require('../controllers/RelatorioSmsController');
 const RelatorioPendenciasController = require('../controllers/RelatorioPendenciasController');
@@ -440,7 +443,7 @@ router.post('/logs/filtro', RelatorioLogController.Filtro);
 
 //Assistencia 24hs
 router.post('/assistencia/incluir', AssistenciaController.AssIncluir);
-router.post('/assistencia/alterar', AssistenciaController.AssAlterar); 
+router.post('/assistencia/alterar', AssistenciaController.AssAlterar);
 router.post('/assistencia/filtrartodasporid', AssistenciaController.AssFiltrarTodasPorId);
 router.post('/assistencia/filtrarselecionadasporid', AssistenciaController.AssFiltrarSelecionadasPorId);
 router.post('/assistencia/filtrarParaAlterar', AssistenciaController.AssFiltrarParaAlterar);
@@ -450,25 +453,30 @@ router.post('/assistencia/updateStatus', AssistenciaController.AssUpdateStatus);
 router.post('/assistencia/emailBanco', AssistenciaController.AssSendEmailBanco);
 router.post('/assistencia/emailCliente', AssistenciaController.AssSendEmailCliente);
 router.post('/assistencia/ike', AssistenciaController.AssGerarArquivoIke);
-router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);  
-router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);  
-router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf); 
-router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes); 
+router.post('/assistencia/ikeEnvio', AssistenciaController.AssSendSftpIke);
+router.post('/assistencia/ikeDownload', AssistenciaController.AssDownloadSftpIke);
+router.post('/assistencia/htmlToPdf', AssistenciaController.htmlToPdf);
+router.post('/assistencia/atualizaParcelas', AssistenciaController.assUpdateParcelasRestantes);
+router.get('/assistencia/downloadTxt', AssistenciaController.downloadTxt);
+router.post('/assistencia/uploadTxt', multer(multerConfigAssistencia).fields([{
+    name: 'txt_retorno', 
+    maxCount: 1
+}]), AssistenciaController.uploadTxt);
 
 
 //Antifraude
 
 router.post('/Antifraude/brtInsert', AntiFraudeController.Incluir); // BRT e unico
 router.post('/Antifraude/brtUpdate', AntiFraudeController.Alterar); // BRT e unico
-router.post('/Antifraude/brtSelectMailing', AntiFraudeController.selectMailings); 
-router.post('/Antifraude/brtSelectArquivos', AntiFraudeController.selectArquivos); 
-router.post('/Antifraude/brasilInDoc', AntiFraudeController.selectBrasilIndoc); 
+router.post('/Antifraude/brtSelectMailing', AntiFraudeController.selectMailings);
+router.post('/Antifraude/brtSelectArquivos', AntiFraudeController.selectArquivos);
+router.post('/Antifraude/brasilInDoc', AntiFraudeController.selectBrasilIndoc);
 
 
 //roboSim Atualizacao propostas
-router.post('/roboSim/select', RoboSimController.select); 
-router.post('/roboSim/update', RoboSimController.update); 
-router.post('/roboSim/filtro', RoboSimController.selecaoFiltro); 
+router.post('/roboSim/select', RoboSimController.select);
+router.post('/roboSim/update', RoboSimController.update);
+router.post('/roboSim/filtro', RoboSimController.selecaoFiltro);
 
 //relatorio SIM
 router.post('/vw/relatorio', RelatorioSimController.selectView);
@@ -535,33 +543,33 @@ router.get('/proposta/aguardando/produto', PropostaAguardandoController.Produto)
 router.post('/proposta/aguardando/incluir', PropostaAguardandoController.Incluir);
 router.post('/proposta/aguardando/filtro', PropostaAguardandoController.Filtro);
 router.post('/proposta/aguardando/anexos', multer(multerConfig).fields([{
-    name: "arquivo5",
-    macCount: 1
-},
-{
-    name: "arquivo6",
-    macCount: 1
-},
-{
-    name: "arquivo7",
-    macCount: 1
-},
-{
-    name: "arquivo8",
-    macCount: 1
-},
+        name: "arquivo5",
+        macCount: 1
+    },
+    {
+        name: "arquivo6",
+        macCount: 1
+    },
+    {
+        name: "arquivo7",
+        macCount: 1
+    },
+    {
+        name: "arquivo8",
+        macCount: 1
+    },
 
-{
-    name: "arquivo_proposta",
-    macCount: 1
-},
+    {
+        name: "arquivo_proposta",
+        macCount: 1
+    },
 
-{
-    name: "termo",
-    macCount: 1
-}
+    {
+        name: "termo",
+        macCount: 1
+    }
 
-]) ,PropostaAguardandoController.Anexo);
+]), PropostaAguardandoController.Anexo);
 
 router.post("/proposta/aguardando/preventivo", multer(multerConfig).single("arquivo_prev"), PropostaAguardandoController.AnexoPreventivo);
 router.get("/proposta/aguardando/download", PropostaAguardandoController.ObterArquivo);
