@@ -94,7 +94,7 @@ router.get('/imobiliario/status', ImobiliarioController.StatusImobiliario);
 
 
 //middleware de autenticação
-router.use(authMiddleware);
+//router.use(authMiddleware);
 
 
 //pequisa de cadastros
