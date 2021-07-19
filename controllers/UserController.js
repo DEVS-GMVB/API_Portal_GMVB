@@ -46,8 +46,8 @@ const UserController = {
 
         return res.status(200).send({
             user: user,
-            supervisor_cpf: buscaCpfSupervisor.cnpj,
-            gerente_cpf: buscaCpfGerente.cnpj,
+            supervisor_cpf: buscaCpfSupervisor.cnpj_matriz,
+            gerente_cpf: buscaCpfGerente.cnpj_matriz,
             tokenjwt:token
         });
     },
