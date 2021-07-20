@@ -28,7 +28,7 @@ const PropostaController = {
             if (Object.keys(objFields).length !== 0) {
                 const result = await propostas.findAll({
                     where: {
-                        ...objFields
+                        ...objFields,
                     }
                 });
 
@@ -159,99 +159,38 @@ const PropostaController = {
     },
 
     FiltroPropostaIdentificacao: async (req, res) => {
-        const {
-            id_acesso,
-            cnpj_matriz,
-            perfil,
-            tipo_usuario,
-            nome,
-            parceiro,
-            proposta,
-            tipo,
-            cpf,
-            mes,
-            data_envio,
-            supervisor,
-            gerente,
-        } = req.body
+        try {
+            let objFields = {
+                ...req.body
+            };
 
-        var where = {};
+            for (let [key, value] of Object.entries(objFields)) {
+                if (value === "" || value === undefined || value === null) {
+                    delete objFields[key];
+                }
+            }
 
-        if (parceiro) where.parceiro = {
-            [Op.substring]: parceiro
-        }
-        if (proposta) where.proposta = proposta;
-        // where.status = "AGUARDANDO DOCUMENTACAO";
-        if (tipo) where.tipo = tipo;
-        if (cpf) where.cpf = cpf;
-        if (mes) where.mes = mes;
-        if (supervisor) where.supervisor = supervisor;
-        if (gerente) where.gerente = gerente;
-        if (data_envio) where.data_envio = data_envio;
-
-        // const propostasFiltro = await propostas.findOne({
-        //     where: {proposta: proposta}
-        // })
-
-        // if(propostasFiltro) {
-        //     res.json(propostasFiltro)
-        // }
-
-        if (tipo_usuario === 'PARCEIRO') {
-
-
-            if (perfil === 'MATRIZ') {
-
-                const idsParceiros = await acesso_completo.findAll({
-
-                    attributes: ['id_acesso'],
-
+            if (Object.keys(objFields).length !== 0) {
+                const result = await propostas.findAll({
                     where: {
-                        cnpj_matriz
+                        ...objFields,
                     }
                 });
 
-                if (idsParceiros) {
+                console.log(result);
 
-                    var parceiros = [];
+                result.length === 0 ? res.json({
+                    message: "nenhum registro encontrado com este filtro"
+                }) : res.json(result);
 
-                    idsParceiros.forEach(element => {
-                        parceiros.push(element.id_acesso)
-                    });
-                }
-
-
-                where.id_acesso = parceiros;
-
-
-                const propstasMatriz = await vw_proposta.findAll({
-
-                    where
-                })
-
-                res.send(propstasMatriz)
+            } else {
+                return res.json({
+                    message: "nenhum registro encontrado com este filtro"
+                });
             }
 
-            if (perfil === 'SUB ACESSO') {
-
-                where.id_acesso = id_acesso
-
-                try {
-
-                    const parceiroSubAcesso = await vw_proposta.findAll({
-
-                        where
-                    })
-
-                    return res.status(200).send(parceiroSubAcesso)
-
-
-                } catch (error) {
-
-                    return res.status(500).send(error)
-                }
-
-            }
+        } catch (error) {
+            console.error(error);
         }
 
 

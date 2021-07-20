@@ -331,11 +331,6 @@ const PreencherCamposController = {
 
         const bancoOrigi = await banco_origi.findAll({
             attributes: ['banco'],
-            where: {
-                tipo_banco: {
-                    [Op.in]: ['MULTI BANCOS'],
-                }
-            },
             order: [
                 ['banco', 'asc']
             ]
