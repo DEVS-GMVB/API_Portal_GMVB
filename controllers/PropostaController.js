@@ -438,7 +438,8 @@ const PropostaController = {
                 cpf_supervisor,
                 cpf_gerente,
                 data_inclusao,
-                id_acesso
+                id_acesso,
+                portal:"1"
             })
 
             return res.status(201).json(createIdentificacaoProposta);
