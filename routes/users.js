@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const authMiddleware = require('../middlewares/auth');
+const enviarFtp = require('../config/ServerExterno')
 
 
 const multerConfig = require('../config/multer');
@@ -210,7 +211,7 @@ router.post('/proposta/inclusao/arquivos', multer(multerConfig).fields([{
         maxCount: 1
     },
 
-]), PropostaController.PropostaArquivos);
+]),enviarFtp, PropostaController.PropostaArquivos);
 
 
 
