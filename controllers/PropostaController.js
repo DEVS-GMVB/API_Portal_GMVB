@@ -438,7 +438,8 @@ const PropostaController = {
                 cpf_supervisor,
                 cpf_gerente,
                 data_inclusao,
-                id_acesso
+                id_acesso,
+                portal:"1"
             })
 
             return res.status(201).json(createIdentificacaoProposta);
@@ -605,13 +606,15 @@ const PropostaController = {
             exercito,
             senha_exercito,
             sexo,
-            email,
+            email_cliente,
             data_nascimento,
-            endereco_uf_comercial,
+            uf,
             cpf,
             observacao,
             responsavel,
-            data_atualizacao
+            data_atualizacao,
+            status,
+            tipo
         } = req.body
 
         const proposta = await propostas.findOne({
@@ -630,13 +633,16 @@ const PropostaController = {
                 proposta.exercito = exercito,
                 proposta.senha_exercito = senha_exercito,
                 proposta.sexo = sexo,
-                proposta.email = email,
+                proposta.email_cliente = email_cliente,
                 proposta.data_nascimento = data_nascimento,
-                proposta.endereco_uf_comercial = endereco_uf_comercial,
+                proposta.uf = uf,
                 proposta.cpf = cpf,
                 proposta.observacao = observacao,
                 proposta.responsavel = responsavel,
-                proposta.data_atualizacao = data_atualizacao
+                proposta.data_atualizacao = data_atualizacao,
+                proposta.status = "CADASTRO",
+                proposta.portal= "1",
+                proposta.tipo = tipo
 
             proposta.save()
             res.status(201).json(proposta)
