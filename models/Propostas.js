@@ -277,7 +277,7 @@ module.exports = (sequelize, DataTypes) => {
         obs_pendencia: DataTypes.STRING,
         refin_ole:DataTypes.STRING,
         empresa_sms:DataTypes.STRING, 
-        id_acesso:DataTypes.STRING, 
+        // id_acesso:DataTypes.STRING, 
         robo_2:DataTypes.STRING,
         venda_sms:DataTypes.STRING, 
         auditoria_sms:DataTypes.STRING, 
@@ -363,11 +363,11 @@ module.exports = (sequelize, DataTypes) => {
         digito_conta:DataTypes.STRING,
         email:DataTypes.STRING, 
         id_sim:DataTypes.STRING,
-        url:DataTypes.STRING,
-        cpf_parceiro:DataTypes.STRING,
-        cpf_gerente:DataTypes.STRING,
-        cpf_supervisor:DataTypes.STRING,
-        data_inclusao:DataTypes.STRING
+        // url:DataTypes.STRING,
+        // cpf_parceiro:DataTypes.STRING,
+        // cpf_gerente:DataTypes.STRING,
+        // cpf_supervisor:DataTypes.STRING,
+        // data_inclusao:DataTypes.STRING
     }, 
         {
         tableName: 'propostas',
