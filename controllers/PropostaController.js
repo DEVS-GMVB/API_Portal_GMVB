@@ -613,7 +613,8 @@ const PropostaController = {
             observacao,
             responsavel,
             data_atualizacao,
-            status
+            status,
+            tipo
         } = req.body
 
         const proposta = await propostas.findOne({
@@ -639,8 +640,9 @@ const PropostaController = {
                 proposta.observacao = observacao,
                 proposta.responsavel = responsavel,
                 proposta.data_atualizacao = data_atualizacao,
-                proposta.status = status,
-                proposta.portal= "1"
+                proposta.status = "CADASTRO",
+                proposta.portal= "1",
+                proposta.tipo = tipo
 
             proposta.save()
             res.status(201).json(proposta)
